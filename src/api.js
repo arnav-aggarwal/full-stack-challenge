@@ -55,3 +55,18 @@ export async function deleteShipment(id) {
         throw err;
     }
 }
+
+export async function deleteAllShipments() {
+    try {
+        const res = await axios.delete("/api/all-shipments");
+
+        if(res.status !== 200) {
+            throw new Error("Edit shipment active status response code was not 200");
+        }
+
+        return res.data;
+    } catch(err) {
+        console.error("Editing shipment failed!");
+        throw err;
+    }
+}

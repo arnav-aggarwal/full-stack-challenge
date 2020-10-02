@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { postShipment, changeActiveStatus, deleteShipment } from "../../api";
+import { postShipment, changeActiveStatus, deleteShipment, deleteAllShipments } from "../../api";
 import "./ShipmentList.scss";
 
 function formatDate(dateStr) {
@@ -12,10 +12,8 @@ function ShipmentListItem({
   shipment: { id, carrierScac, containerId, createdAt, isActive },
   refreshCurrentShipments,
 }) {
-  // TODO: Filter by active/inactive status
   // TODO: Toast notifications for active/inactive button
   // TODO: Make items draggable
-  // TODO: Allow all items to be deleted
   const MarkInactiveButton = () => <button onClick={markInactive}>Mark Inactive</button>;
   const MarkActiveButton = () => <button onClick={markActive}>Mark Active</button>;
 
@@ -124,6 +122,32 @@ function ShipmentList({ shipments, onRefreshClick }) {
   const showCreateShipmentForm = () => setCreatingShipment(true);
   const hideCreateShipmentForm = () => setCreatingShipment(false);
 
+  const [showing, setShowing] = useState({
+    active: true,
+    inactive: true,
+  });
+
+  function handleInputChange(event) {
+    setShowing({
+      ...showing,
+      [event.target.name]: event.target.checked,
+    });
+  }
+
+  let shipmentsToShow = shipments;
+  if(!showing.active) {
+    shipmentsToShow = shipmentsToShow.filter(item => !item.isActive);
+  }
+
+  if(!showing.inactive) {
+    shipmentsToShow = shipmentsToShow.filter(item => item.isActive);
+  }
+
+  async function deleteAll() {
+    await deleteAllShipments();
+    onRefreshClick();
+  }
+
   return (
     <>
       <h1>Current Shipments</h1>
@@ -142,8 +166,29 @@ function ShipmentList({ shipments, onRefreshClick }) {
           <br />
         </>
       )}
+      <div>
+        <h2>Show:</h2>
+        <label>
+          Active:
+          <input
+            name="active"
+            type="checkbox"
+            checked={showing.active}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          Inactive:
+          <input
+            name="inactive"
+            type="checkbox"
+            checked={showing.inactive}
+            onChange={handleInputChange}
+          />
+      </label>
+      </div>
       <ul className="ShipmentList">
-        {shipments.map((shipment) => (
+        {shipmentsToShow.map((shipment) => (
           <ShipmentListItem
             key={`shipment-${shipment.id}`}
             shipment={shipment}
@@ -152,6 +197,7 @@ function ShipmentList({ shipments, onRefreshClick }) {
         ))}
       </ul>
       <button onClick={() => onRefreshClick()}>Refresh List</button>
+      <button onClick={deleteAll}>Delete List</button>
     </>
   );
 }

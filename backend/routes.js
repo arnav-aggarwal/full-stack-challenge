@@ -39,4 +39,9 @@ router.delete("/shipments/:id", async(req, res) => {
   res.send(thisShipment);
 });
 
+router.delete("/all-shipments", async(req, res) => {
+  await Shipment.destroy({ truncate: true });
+  res.send('Deleted list');
+});
+
 module.exports = router;
