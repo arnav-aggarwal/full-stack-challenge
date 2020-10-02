@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { postShipment } from "../../api";
+import { postShipment, changeActiveStatus } from "../../api";
 import "./ShipmentList.scss";
 
 function formatDate(dateStr) {
@@ -9,9 +9,9 @@ function formatDate(dateStr) {
 }
 
 function ShipmentListItem({
-  shipment: { carrierScac, containerId, createdAt, isActive },
+  shipment: { id, carrierScac, containerId, createdAt, isActive },
+  refreshCurrentShipments,
 }) {
-  // TODO: Add button to activate/inactivate
   // TODO: Filter by active/inactive status
   // TODO: Toast notifications for active/inactive button
   // TODO: Make items draggable
@@ -20,12 +20,14 @@ function ShipmentListItem({
   const MarkInactiveButton = () => <button onClick={markInactive}>Mark Inactive</button>;
   const MarkActiveButton = () => <button onClick={markActive}>Mark Active</button>;
 
-  function markInactive() {
-
+  async function markInactive() {
+    await changeActiveStatus({ id, isActive: false });
+    refreshCurrentShipments();
   }
 
-  function markActive() {
-
+  async function markActive() {
+    await changeActiveStatus({ id, isActive: true });
+    refreshCurrentShipments();
   }
 
   return (
@@ -140,6 +142,7 @@ function ShipmentList({ shipments, onRefreshClick }) {
           <ShipmentListItem
             key={`shipment-${shipment.id}`}
             shipment={shipment}
+            refreshCurrentShipments={onRefreshClick}
           />
         ))}
       </ul>

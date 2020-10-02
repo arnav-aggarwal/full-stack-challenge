@@ -17,8 +17,14 @@ router.post("/shipments", async(req, res) => {
 });
 
 router.patch("/shipments", async(req, res) => {
-  const editedShipment = await Shipment.create(req.body);
-  res.send(editedShipment);
+  const { id, isActive } = req.body;
+  const shipments = await Shipment.findAll({ where: { id }});
+
+  const thisShipment = shipments[0];
+  thisShipment.isActive = isActive;
+  await thisShipment.save();
+
+  res.send(thisShipment);
 });
 
 module.exports = router;

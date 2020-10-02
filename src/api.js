@@ -30,7 +30,7 @@ export async function changeActiveStatus(body) {
     try {
         const res = await axios.patch("/api/shipments", body);
 
-        if(res.status !== 201) {
+        if(res.status !== 200) {
             throw new Error("Edit shipment active status response code was not 201");
         }
 
