@@ -10,3 +10,13 @@ export async function getShipments() {
         throw err;
     }
 }
+
+export async function postShipment(body) {
+    try {
+        const res = await axios.post("/api/shipments", body);
+        return res;
+    } catch(err) {
+        console.error("Creating shipment failed!");
+        throw err;
+    }
+}

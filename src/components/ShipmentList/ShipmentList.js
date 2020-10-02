@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { postShipment } from "../../api";
 import "./ShipmentList.css";
 
 function formatDate(dateStr) {
@@ -53,6 +54,7 @@ function CreateShipmentForm() {
   function createShipment(event) {
     event.preventDefault();
     console.log(formInputs);
+    postShipment(formInputs);
   }
 
   return (
