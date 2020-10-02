@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { postShipment } from "../../api";
-import "./ShipmentList.css";
+import "./ShipmentList.scss";
 
 function formatDate(dateStr) {
   const d = new Date(dateStr);

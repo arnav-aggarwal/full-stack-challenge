@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getShipments } from "../../api";
 import ShipmentList from "../ShipmentList";
 import logo from "./logo.svg";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
