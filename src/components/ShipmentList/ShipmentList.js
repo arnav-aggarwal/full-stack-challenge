@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./ShipmentList.css";
 
@@ -33,10 +33,51 @@ ShipmentListItem.propTypes = {
   shipment: ShipmentPropType
 }
 
+function createShipment(event) {
+  // event.preventDefault();
+  // const data = new FormData(event.target);
+  // console.log(data.get('isActive'));
+}
+
+function CreateShipmentForm() {
+  return (
+    <form onSubmit={createShipment}>
+      <input name="containerId" placeholder="Container ID"></input>
+      <br />
+      <input name="carrierScac" placeholder="Carrier SCAC"></input>
+      <br />
+      <label>
+        Active:
+        <input name="isActive" type="checkbox" id="active" defaultChecked></input>
+      </label>
+      <br />
+      <br />
+      <button>Submit</button>
+    </form>
+  );
+}
+
 function ShipmentList({ shipments, onRefreshClick }) {
+  const [creatingShipment, setCreatingShipment] = useState(false);
+  const showCreateShipmentForm = () => setCreatingShipment(true);
+  const hideCreateShipmentForm = () => setCreatingShipment(false);
+
   return (
     <>
       <h1>Current Shipments</h1>
+      {creatingShipment ?
+        <button onClick={hideCreateShipmentForm}>Cancel</button> :
+        <button onClick={showCreateShipmentForm}>Create Shipment</button>
+      }
+      {creatingShipment && (
+        <>
+          <br />
+          <br />
+          <CreateShipmentForm />
+          <br />
+          <br />
+        </>
+      )}
       <ul className="ShipmentList">
         {shipments.map((shipment) => (
           <ShipmentListItem
