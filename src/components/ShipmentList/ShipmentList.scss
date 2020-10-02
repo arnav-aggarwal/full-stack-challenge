@@ -10,8 +10,16 @@
     margin: 1em auto;
     /* box-shadow: 0 0 5px #ccc; */
     border: 1px solid #ddd;
-    border-left: 6px solid #aaa;
+    // border-left: 6px solid #aaa;
     border-radius: 5px;
+
+    &.active {
+        border-left: 6px solid green;
+    }
+
+    &.inactive {
+        border-left: 6px solid red;
+    }
 }
 
 .ShipmentListItem-title {

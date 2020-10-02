@@ -17,13 +17,24 @@ function ShipmentListItem({
   // TODO: Make items draggable
   // TODO: Make items deletable
   // TODO: Allow all items to be deleted
+  const MarkInactiveButton = () => <button onClick={markInactive}>Mark Inactive</button>;
+  const MarkActiveButton = () => <button onClick={markActive}>Mark Active</button>;
+
+  function markInactive() {
+
+  }
+
+  function markActive() {
+
+  }
+
   return (
-    <li className="ShipmentListItem">
+    <li className={`ShipmentListItem ${isActive ? 'active' : 'inactive'}`}>
       <p className="ShipmentListItem-title">
         {carrierScac} / {containerId}
       </p>
       <p>Created {formatDate(createdAt)}</p>
-      <p>Is Active: {'' + isActive}</p>
+      {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
     </li>
   );
 }
