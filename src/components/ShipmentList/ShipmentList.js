@@ -10,7 +10,7 @@ function formatDate(dateStr) {
 
 function ShipmentListItem({
   shipment: { id, carrierScac, containerId, createdAt, isActive },
-  refreshCurrentShipments,
+  refreshShipments,
 }) {
   // TODO: Toast notifications for active/inactive button
   // TODO: Make items draggable
@@ -19,17 +19,17 @@ function ShipmentListItem({
 
   async function markInactive() {
     await changeActiveStatus(id, { isActive: false });
-    refreshCurrentShipments();
+    refreshShipments();
   }
 
   async function markActive() {
     await changeActiveStatus(id, { isActive: true });
-    refreshCurrentShipments();
+    refreshShipments();
   }
 
   async function removeShipment() {
     await deleteShipment(id);
-    refreshCurrentShipments();
+    refreshShipments();
   }
 
   return (
@@ -54,11 +54,11 @@ const ShipmentPropType = PropTypes.shape({
 });
 
 ShipmentListItem.propTypes = {
-  shipment: ShipmentPropType
+  shipment: ShipmentPropType,
+  refreshShipments: PropTypes.func,
 }
 
-function CreateShipmentForm({ refreshCurrentShipments }) {
-  // TODO: Add prop types
+function CreateShipmentForm({ refreshShipments }) {
   const [formInputs, setFormInputs] = useState({
     containerId: '',
     carrierScac: '',
@@ -81,7 +81,7 @@ function CreateShipmentForm({ refreshCurrentShipments }) {
     // TODO: Toast notifications
     event.preventDefault();
     await postShipment(formInputs);
-    refreshCurrentShipments();
+    refreshShipments();
   }
 
   // TODO: Clean up form, make modal?
@@ -117,7 +117,11 @@ function CreateShipmentForm({ refreshCurrentShipments }) {
   );
 }
 
-function ShipmentList({ shipments, onRefreshClick }) {
+CreateShipmentForm.propTypes = {
+  refreshShipments: PropTypes.func,
+};
+
+function ShipmentList({ shipments, refreshShipments }) {
   const [creatingShipment, setCreatingShipment] = useState(false);
   const showCreateShipmentForm = () => setCreatingShipment(true);
   const hideCreateShipmentForm = () => setCreatingShipment(false);
@@ -145,7 +149,7 @@ function ShipmentList({ shipments, onRefreshClick }) {
 
   async function deleteAll() {
     await deleteAllShipments();
-    onRefreshClick();
+    refreshShipments();
   }
 
   return (
@@ -160,7 +164,7 @@ function ShipmentList({ shipments, onRefreshClick }) {
           <br />
           <br />
           <CreateShipmentForm
-            refreshCurrentShipments={onRefreshClick}
+            refreshShipments={refreshShipments}
           />
           <br />
           <br />
@@ -192,11 +196,11 @@ function ShipmentList({ shipments, onRefreshClick }) {
           <ShipmentListItem
             key={`shipment-${shipment.id}`}
             shipment={shipment}
-            refreshCurrentShipments={onRefreshClick}
+            refreshShipments={refreshShipments}
           />
         ))}
       </ul>
-      <button onClick={() => onRefreshClick()}>Refresh List</button>
+      <button onClick={() => refreshShipments()}>Refresh List</button>
       <button onClick={deleteAll}>Delete List</button>
     </>
   );
@@ -204,7 +208,7 @@ function ShipmentList({ shipments, onRefreshClick }) {
 
 ShipmentList.propTypes = {
   shipments: PropTypes.arrayOf(ShipmentPropType),
-  onRefreshClick: PropTypes.func
+  refreshShipments: PropTypes.func
 };
 
 export default ShipmentList;

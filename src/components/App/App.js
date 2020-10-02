@@ -34,7 +34,7 @@ function App() {
       {isLoading ? (
         <p className="App-loading-message">Loading...</p>
       ) : (
-        <ShipmentList shipments={shipments} onRefreshClick={loadShipments} />
+        <ShipmentList shipments={shipments} refreshShipments={loadShipments} />
       )}
     </div>
   );
