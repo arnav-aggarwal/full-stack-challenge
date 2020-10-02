@@ -33,26 +33,56 @@ ShipmentListItem.propTypes = {
   shipment: ShipmentPropType
 }
 
-function createShipment(event) {
-  // event.preventDefault();
-  // const data = new FormData(event.target);
-  // console.log(data.get('isActive'));
-}
-
 function CreateShipmentForm() {
+  const [formInputs, setFormInputs] = useState({
+    containerId: '',
+    carrierScac: '',
+    isActive: true
+  });
+
+  function handleInputChange(event) {
+    const { target } = event;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    setFormInputs({
+      ...formInputs,
+      [target.name]: value,
+    });
+  };
+
+  function createShipment(event) {
+    event.preventDefault();
+    console.log(formInputs);
+  }
+
   return (
     <form onSubmit={createShipment}>
-      <input name="containerId" placeholder="Container ID"></input>
+      <input
+        name="containerId"
+        placeholder="Container ID"
+        value={formInputs.containerId}
+        onChange={handleInputChange}
+      />
       <br />
-      <input name="carrierScac" placeholder="Carrier SCAC"></input>
+      <input
+        name="carrierScac"
+        placeholder="Carrier SCAC"
+        value={formInputs.carrierScac}
+        onChange={handleInputChange}
+      />
       <br />
       <label>
         Active:
-        <input name="isActive" type="checkbox" id="active" defaultChecked></input>
+        <input
+          name="isActive"
+          type="checkbox"
+          checked={formInputs.isActive}
+          onChange={handleInputChange}
+        />
       </label>
       <br />
       <br />
-      <button>Submit</button>
+      <input type="submit" value="Submit" />
     </form>
   );
 }
