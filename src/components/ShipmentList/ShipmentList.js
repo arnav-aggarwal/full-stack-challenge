@@ -99,19 +99,29 @@ function CreateShipmentForm({ refreshShipments }) {
   // TODO: Clean up form, make modal?
   return (
     <form onSubmit={createShipment}>
-      <input
-        name="containerId"
-        placeholder="Container ID"
-        value={formInputs.containerId}
-        onChange={handleInputChange}
-      />
+      <label>
+        Container ID:
+        <br />
+        <input
+          name="containerId"
+          placeholder="Container ID"
+          value={formInputs.containerId}
+          onChange={handleInputChange}
+        />
+      </label>
       <br />
-      <input
-        name="carrierScac"
-        placeholder="Carrier SCAC"
-        value={formInputs.carrierScac}
-        onChange={handleInputChange}
-      />
+      <br />
+      <label>
+        Carrier SCAC:
+        <br />
+        <input
+          name="carrierScac"
+          placeholder="Carrier SCAC"
+          value={formInputs.carrierScac}
+          onChange={handleInputChange}
+        />
+      </label>
+      <br />
       <br />
       <label>
         Active:
