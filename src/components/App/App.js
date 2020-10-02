@@ -31,11 +31,13 @@ function App() {
           Shipments
         </a>
       </header>
-      {isLoading ? (
-        <p className="App-loading-message">Loading...</p>
-      ) : (
-        <ShipmentList shipments={shipments} refreshShipments={loadShipments} />
-      )}
+      <div id="main">
+        {isLoading ? (
+          <p className="App-loading-message">Loading...</p>
+        ) : (
+          <ShipmentList shipments={shipments} refreshShipments={loadShipments} />
+        )}
+      </div>
     </div>
   );
 }

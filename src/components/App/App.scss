@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  // text-align: center;
 }
 
 .App-logo {
@@ -60,4 +60,9 @@
   100% {
     transform: rotate(0deg);
   }
+}
+
+#main {
+  margin: 0 auto;
+  width: 50vw;
 }

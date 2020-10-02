@@ -176,22 +176,24 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   return (
     <>
-      <h1>Current Shipments</h1>
-      {creatingShipment ?
-        <button onClick={hideCreateShipmentForm}>Cancel</button> :
-        <button onClick={showCreateShipmentForm}>Create Shipment</button>
-      }
-      {creatingShipment && (
-        <>
-          <br />
-          <br />
-          <CreateShipmentForm
-            refreshShipments={refreshShipments}
-          />
-          <br />
-          <br />
-        </>
-      )}
+      <div id="shipment-list-header">
+        <h1>Current Shipments</h1>
+        {creatingShipment ?
+          <button onClick={hideCreateShipmentForm}>Cancel</button> :
+          <button onClick={showCreateShipmentForm}>Create Shipment</button>
+        }
+        {creatingShipment && (
+          <>
+            <br />
+            <br />
+            <CreateShipmentForm
+              refreshShipments={refreshShipments}
+            />
+            <br />
+            <br />
+          </>
+        )}
+      </div>
       <div>
         <h2>Show:</h2>
         <label>
