@@ -16,6 +16,10 @@ function validateScac(scac) {
   return /[a-zA-Z]{2,4}/.test(scac);
 }
 
+function formatContainerId(id) {
+  return `${id.slice(0, 4)}-${id.slice(4, -1)}-${id.slice(-1)}`
+}
+
 function ShipmentListItem({
   shipment: { id, carrierScac, containerId, createdAt, isActive },
   refreshShipments,
@@ -43,7 +47,7 @@ function ShipmentListItem({
   return (
     <li className={`ShipmentListItem ${isActive ? 'active' : 'inactive'}`}>
       <p className="ShipmentListItem-title">
-        {carrierScac} / {containerId}
+        {carrierScac} / {formatContainerId(containerId)}
       </p>
       <p>Created {formatDate(createdAt)}</p>
       {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
