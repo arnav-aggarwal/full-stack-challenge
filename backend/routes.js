@@ -27,4 +27,14 @@ router.patch("/shipments", async(req, res) => {
   res.send(thisShipment);
 });
 
+router.delete("/shipments/:id", async(req, res) => {
+  const { id } = req.params;
+  const shipments = await Shipment.findAll({ where: { id }});
+
+  const thisShipment = shipments[0];
+  await thisShipment.destroy();
+
+  res.send(thisShipment);
+});
+
 module.exports = router;

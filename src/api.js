@@ -31,7 +31,22 @@ export async function changeActiveStatus(body) {
         const res = await axios.patch("/api/shipments", body);
 
         if(res.status !== 200) {
-            throw new Error("Edit shipment active status response code was not 201");
+            throw new Error("Edit shipment active status response code was not 200");
+        }
+
+        return res.data;
+    } catch(err) {
+        console.error("Editing shipment failed!");
+        throw err;
+    }
+}
+
+export async function deleteShipment(id) {
+    try {
+        const res = await axios.delete(`/api/shipments/${id}`);
+
+        if(res.status !== 200) {
+            throw new Error("Edit shipment active status response code was not 200");
         }
 
         return res.data;

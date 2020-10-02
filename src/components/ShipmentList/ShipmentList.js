@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { postShipment, changeActiveStatus } from "../../api";
+import { postShipment, changeActiveStatus, deleteShipment } from "../../api";
 import "./ShipmentList.scss";
 
 function formatDate(dateStr) {
@@ -15,7 +15,6 @@ function ShipmentListItem({
   // TODO: Filter by active/inactive status
   // TODO: Toast notifications for active/inactive button
   // TODO: Make items draggable
-  // TODO: Make items deletable
   // TODO: Allow all items to be deleted
   const MarkInactiveButton = () => <button onClick={markInactive}>Mark Inactive</button>;
   const MarkActiveButton = () => <button onClick={markActive}>Mark Active</button>;
@@ -30,6 +29,11 @@ function ShipmentListItem({
     refreshCurrentShipments();
   }
 
+  async function removeShipment() {
+    await deleteShipment(id);
+    refreshCurrentShipments();
+  }
+
   return (
     <li className={`ShipmentListItem ${isActive ? 'active' : 'inactive'}`}>
       <p className="ShipmentListItem-title">
@@ -37,6 +41,7 @@ function ShipmentListItem({
       </p>
       <p>Created {formatDate(createdAt)}</p>
       {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
+      <button onClick={removeShipment}>Delete</button>
     </li>
   );
 }
