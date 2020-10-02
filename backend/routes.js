@@ -16,11 +16,13 @@ router.post("/shipments", async(req, res) => {
   res.status(201).send(newShipment);
 });
 
-router.patch("/shipments", async(req, res) => {
-  const { id, isActive } = req.body;
-  const shipments = await Shipment.findAll({ where: { id }});
+router.patch("/shipments/:id", async(req, res) => {
+  const { id } = req.params;
+  const { isActive } = req.body;
 
+  const shipments = await Shipment.findAll({ where: { id }});
   const thisShipment = shipments[0];
+
   thisShipment.isActive = isActive;
   await thisShipment.save();
 

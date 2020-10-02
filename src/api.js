@@ -26,9 +26,9 @@ export async function postShipment(body) {
     }
 }
 
-export async function changeActiveStatus(body) {
+export async function changeActiveStatus(id, body) {
     try {
-        const res = await axios.patch("/api/shipments", body);
+        const res = await axios.patch(`/api/shipments/${id}`, body);
 
         if(res.status !== 200) {
             throw new Error("Edit shipment active status response code was not 200");

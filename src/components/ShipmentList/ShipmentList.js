@@ -20,12 +20,12 @@ function ShipmentListItem({
   const MarkActiveButton = () => <button onClick={markActive}>Mark Active</button>;
 
   async function markInactive() {
-    await changeActiveStatus({ id, isActive: false });
+    await changeActiveStatus(id, { isActive: false });
     refreshCurrentShipments();
   }
 
   async function markActive() {
-    await changeActiveStatus({ id, isActive: true });
+    await changeActiveStatus(id, { isActive: true });
     refreshCurrentShipments();
   }
 
