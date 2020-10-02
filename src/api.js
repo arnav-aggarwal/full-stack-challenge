@@ -14,7 +14,12 @@ export async function getShipments() {
 export async function postShipment(body) {
     try {
         const res = await axios.post("/api/shipments", body);
-        return res;
+
+        if(res.status !== 201) {
+            throw new Error("Create shipment response code was not 201");
+        }
+
+        return res.data;
     } catch(err) {
         console.error("Creating shipment failed!");
         throw err;

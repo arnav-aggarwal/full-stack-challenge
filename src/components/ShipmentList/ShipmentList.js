@@ -11,6 +11,10 @@ function formatDate(dateStr) {
 function ShipmentListItem({
   shipment: { carrierScac, containerId, createdAt },
 }) {
+  // TODO: Add button to activate/inactivate
+  // TODO: Filter by active/inactive status
+  // TODO: Toast notifications for active/inactive button
+  // TODO: Make items draggable
   return (
     <li className="ShipmentListItem">
       <p className="ShipmentListItem-title">
@@ -34,7 +38,8 @@ ShipmentListItem.propTypes = {
   shipment: ShipmentPropType
 }
 
-function CreateShipmentForm() {
+function CreateShipmentForm({ refreshCurrentShipments }) {
+  // TODO: Add prop types
   const [formInputs, setFormInputs] = useState({
     containerId: '',
     carrierScac: '',
@@ -51,12 +56,16 @@ function CreateShipmentForm() {
     });
   };
 
-  function createShipment(event) {
+  async function createShipment(event) {
+    // TODO: Validate containerId & carrierScac
+    // TODO: Write validation tests
+    // TODO: Toast notifications
     event.preventDefault();
-    console.log(formInputs);
-    postShipment(formInputs);
+    await postShipment(formInputs);
+    refreshCurrentShipments();
   }
 
+  // TODO: Clean up form, make modal?
   return (
     <form onSubmit={createShipment}>
       <input
@@ -105,7 +114,9 @@ function ShipmentList({ shipments, onRefreshClick }) {
         <>
           <br />
           <br />
-          <CreateShipmentForm />
+          <CreateShipmentForm
+            refreshCurrentShipments={onRefreshClick}
+          />
           <br />
           <br />
         </>

@@ -12,8 +12,8 @@ router.get("/shipments", async (req, res) => {
 });
 
 router.post("/shipments", async(req, res) => {
-  console.log(req.body);
-  res.status(201).send('Success');
+  const newShipment = await Shipment.create(req.body);
+  res.status(201).send(newShipment);
 });
 
 module.exports = router;
