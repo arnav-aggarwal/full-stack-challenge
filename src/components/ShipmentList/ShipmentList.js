@@ -9,18 +9,21 @@ function formatDate(dateStr) {
 }
 
 function ShipmentListItem({
-  shipment: { carrierScac, containerId, createdAt },
+  shipment: { carrierScac, containerId, createdAt, isActive },
 }) {
   // TODO: Add button to activate/inactivate
   // TODO: Filter by active/inactive status
   // TODO: Toast notifications for active/inactive button
   // TODO: Make items draggable
+  // TODO: Make items deletable
+  // TODO: Allow all items to be deleted
   return (
     <li className="ShipmentListItem">
       <p className="ShipmentListItem-title">
         {carrierScac} / {containerId}
       </p>
       <p>Created {formatDate(createdAt)}</p>
+      <p>Is Active: {'' + isActive}</p>
     </li>
   );
 }

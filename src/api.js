@@ -25,3 +25,18 @@ export async function postShipment(body) {
         throw err;
     }
 }
+
+export async function changeActiveStatus(body) {
+    try {
+        const res = await axios.patch("/api/shipments", body);
+
+        if(res.status !== 201) {
+            throw new Error("Edit shipment active status response code was not 201");
+        }
+
+        return res.data;
+    } catch(err) {
+        console.error("Editing shipment failed!");
+        throw err;
+    }
+}

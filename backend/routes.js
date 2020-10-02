@@ -16,4 +16,9 @@ router.post("/shipments", async(req, res) => {
   res.status(201).send(newShipment);
 });
 
+router.patch("/shipments", async(req, res) => {
+  const editedShipment = await Shipment.create(req.body);
+  res.send(editedShipment);
+});
+
 module.exports = router;
