@@ -8,6 +8,14 @@ function formatDate(dateStr) {
   return d.toLocaleString();
 }
 
+function validateContainerId(id) {
+  return /[a-zA-Z]{3}(u|U|j|J|z|Z)\d{7}/.test(id);
+}
+
+function validateScac(scac) {
+  return /[a-zA-Z]{2,4}/.test(scac);
+}
+
 function ShipmentListItem({
   shipment: { id, carrierScac, containerId, createdAt, isActive },
   refreshShipments,
