@@ -25,8 +25,8 @@ test("renders a list of shipments", () => {
   const { getByText } = render(
     <ShipmentList shipments={shipments} />
   );
-  const firstShipment = getByText(/TGHU9127781/i);
-  const secondShipment = getByText(/APHU7369949/i);
+  const firstShipment = getByText(/TGHU-912778-1/i);
+  const secondShipment = getByText(/APHU-736994-9/i);
   expect(firstShipment).toBeDefined();
   expect(secondShipment).toBeDefined();
 });
