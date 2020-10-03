@@ -107,8 +107,8 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
         <label>
           Active:
           <input
-            name="isActive"
             type="checkbox"
+            name="isActive"
             checked={formInputs.isActive}
             onChange={handleInputChange}
           />

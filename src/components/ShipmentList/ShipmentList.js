@@ -19,7 +19,7 @@ function ShipmentList({ shipments, refreshShipments }) {
     inactive: true,
   });
 
-  function handleInputChange(event) {
+  function handleShowingChange(event) {
     setShowing({
       ...showing,
       [event.target.name]: event.target.checked,
@@ -33,6 +33,26 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   if(!showing.inactive) {
     shipmentsToShow = shipmentsToShow.filter(item => item.isActive);
+  }
+
+  const [displayOrder, changeDisplayOrder] = useState('date')
+  const orderByDate = () => changeDisplayOrder('date');
+  const orderByScac = () => changeDisplayOrder('scac');
+
+  if(displayOrder === 'date') {
+    shipmentsToShow.sort((a, b) => {
+      return new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1
+    });
+  }
+
+  if(displayOrder === 'scac') {
+    shipmentsToShow.sort((a, b) => {
+      if(a.carrierScac === b.carrierScac) {
+        return a.containerId > b.containerId ? 1 : -1;
+      }
+
+      return a.carrierScac > b.carrierScac ? 1 : -1
+    });
   }
 
   async function deleteAll() {
@@ -53,7 +73,7 @@ function ShipmentList({ shipments, refreshShipments }) {
             name="active"
             type="checkbox"
             checked={showing.active}
-            onChange={handleInputChange}
+            onChange={handleShowingChange}
             />
         </label>
         <label>
@@ -62,7 +82,28 @@ function ShipmentList({ shipments, refreshShipments }) {
             name="inactive"
             type="checkbox"
             checked={showing.inactive}
-            onChange={handleInputChange}
+            onChange={handleShowingChange}
+            />
+        </label>
+      </div>
+      <div>
+        <h2>Order by:</h2>
+        <label>
+          Date Created
+          <input
+            // name="date"
+            type="checkbox"
+            checked={displayOrder === 'date'}
+            onChange={orderByDate}
+            />
+        </label>
+        <label>
+          Carrier SCAC
+          <input
+            // name="scac"
+            type="checkbox"
+            checked={displayOrder === 'scac'}
+            onChange={orderByScac}
             />
         </label>
       </div>
