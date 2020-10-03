@@ -183,14 +183,13 @@ function ShipmentList({ shipments, refreshShipments }) {
         </label>
       </div>
       <div id="create-shipment-container">
-        {creatingShipment && (
+        {creatingShipment ? (
           <CreateShipmentForm
             refreshShipments={refreshShipments}
             hideCreateShipmentForm={hideCreateShipmentForm}
             shipments={shipments}
           />
-        )}
-        {!creatingShipment && (
+        ) : (
           <button
             className="create-shipment-button pure-button"
             onClick={showCreateShipmentForm}
