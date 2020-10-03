@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
-import { validateContainerId, validateScac, createShipmentTitle } from '../helpers';
+import { validateContainerId, validateScac, createShipmentTitle, cleanContainerId } from '../helpers';
 import { postShipment } from '../../../api';
 
 import './CreateShipmentForm.scss';
@@ -30,16 +30,12 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
     // TODO: Write validation tests
     event.preventDefault();
 
-    const { carrierScac, containerId } = formInputs;
+    const editedFormInputs = {
+      ...formInputs,
+      containerId: cleanContainerId(formInputs.containerId),
+    };
 
-    if(!validateContainerId(containerId)) {
-      toast.warning(`Please ensure you've entered a valid container ID.`, {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: 'invalid-container-id',
-      });
-
-      return;
-    }
+    const { carrierScac, containerId } = editedFormInputs;
 
     if(!validateScac(carrierScac)) {
       toast.warning(`Please ensure you've entered a valid carrier SCAC.`, {
@@ -50,7 +46,16 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       return;
     }
 
-    const shipmentTitle = createShipmentTitle(formInputs.carrierScac, formInputs.containerId);
+    if(!validateContainerId(containerId)) {
+      toast.warning(`Please ensure you've entered a valid container ID.`, {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId: 'invalid-container-id',
+      });
+
+      return;
+    }
+
+    const shipmentTitle = createShipmentTitle(carrierScac, containerId);
 
     if(shipments.find(item => item.carrierScac === carrierScac && item.containerId === containerId)) {
       toast.warning(`You're already tracking shipment ${shipmentTitle}.`, {
@@ -61,7 +66,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       return;
     }
 
-    await postShipment(formInputs);
+    await postShipment(editedFormInputs);
     toast.success(`Shipment ${shipmentTitle} created.`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });

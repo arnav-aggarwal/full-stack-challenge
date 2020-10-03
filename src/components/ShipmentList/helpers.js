@@ -8,11 +8,15 @@ export function formatDate(dateStr) {
 }
 
 export function validateContainerId(id) {
-  return /[A-Z]{3}(U|J|Z)\d{7}/.test(id);
+  return /^[A-Z]{3}(U|J|Z)\d{7}$/.test(cleanContainerId(id));
+}
+
+export function cleanContainerId(id) {
+  return id.replace(/-/g, '');
 }
 
 export function validateScac(scac) {
-  return /[A-Z]{2,4}/.test(scac);
+  return /^[A-Z]{2,4}$/.test(scac);
 }
 
 export function formatContainerId(id) {
