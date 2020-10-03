@@ -1,27 +1,29 @@
-import axios from "axios";
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // Fetch all shipments
 export async function getShipments() {
     try {
-        const res = await axios.get("/api/shipments");
+        const res = await axios.get('/api/shipments');
         return res.data;
     } catch (err) {
-        console.error("Fetching shipments from API failed!");
+        console.error('Fetching shipments failed!');
+        toast.error('Error loading shipment data. Please try again later.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        });
         throw err;
     }
 }
 
 export async function postShipment(body) {
     try {
-        const res = await axios.post("/api/shipments", body);
-
-        if(res.status !== 201) {
-            throw new Error("Create shipment response code was not 201");
-        }
-
+        const res = await axios.post('/api/shipments', body);
         return res.data;
     } catch(err) {
-        console.error("Creating shipment failed!");
+        console.error('Creating shipment failed!');
+        toast.error('Error creating shipment. Please try again later.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        });
         throw err;
     }
 }
@@ -29,14 +31,12 @@ export async function postShipment(body) {
 export async function changeActiveStatus(id, body) {
     try {
         const res = await axios.patch(`/api/shipments/${id}`, body);
-
-        if(res.status !== 200) {
-            throw new Error("Edit shipment active status response code was not 200");
-        }
-
         return res.data;
     } catch(err) {
-        console.error("Editing shipment failed!");
+        console.error('Editing shipment failed!');
+        toast.error('Error changing shipment status. Please try again later.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        });
         throw err;
     }
 }
@@ -44,29 +44,25 @@ export async function changeActiveStatus(id, body) {
 export async function deleteShipment(id) {
     try {
         const res = await axios.delete(`/api/shipments/${id}`);
-
-        if(res.status !== 200) {
-            throw new Error("Edit shipment active status response code was not 200");
-        }
-
         return res.data;
     } catch(err) {
-        console.error("Editing shipment failed!");
+        console.error('Deleting shipment failed!');
+        toast.error('Error deleting shipment. Please try again later.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        });
         throw err;
     }
 }
 
 export async function deleteAllShipments() {
     try {
-        const res = await axios.delete("/api/all-shipments");
-
-        if(res.status !== 200) {
-            throw new Error("Edit shipment active status response code was not 200");
-        }
-
+        const res = await axios.delete('/api/all-shipments');
         return res.data;
     } catch(err) {
-        console.error("Editing shipment failed!");
+        console.error('Deleting all shipments failed!');
+        toast.error('Error deleting all shipments. Please try again later.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+        });
         throw err;
     }
 }

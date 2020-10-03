@@ -13,11 +13,11 @@ function formatDate(dateStr) {
 }
 
 function validateContainerId(id) {
-  return /[a-zA-Z]{3}(u|U|j|J|z|Z)\d{7}/.test(id);
+  return /[A-Z]{3}(U|J|Z)\d{7}/.test(id);
 }
 
 function validateScac(scac) {
-  return /[a-zA-Z]{2,4}/.test(scac);
+  return /[A-Z]{2,4}/.test(scac);
 }
 
 function formatContainerId(id) {
@@ -40,7 +40,7 @@ function ShipmentListItem({
   async function markInactive() {
     await changeActiveStatus(id, { isActive: false });
     toast.success(`Shipment ${shipmentTitle} marked inactive.`, {
-      position: toast.POSITION.BOTTOM_RIGHT
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
     refreshShipments();
   }
@@ -48,7 +48,7 @@ function ShipmentListItem({
   async function markActive() {
     await changeActiveStatus(id, { isActive: true });
     toast.success(`Shipment ${shipmentTitle} marked active.`, {
-      position: toast.POSITION.BOTTOM_RIGHT
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
     refreshShipments();
   }
@@ -56,7 +56,7 @@ function ShipmentListItem({
   async function removeShipment() {
     await deleteShipment(id);
     toast.success(`Shipment ${shipmentTitle} deleted.`, {
-      position: toast.POSITION.BOTTOM_RIGHT
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
     refreshShipments();
   }
@@ -96,7 +96,7 @@ function CreateShipmentForm({ refreshShipments }) {
 
   function handleInputChange(event) {
     const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : target.value.toUpperCase();
 
     setFormInputs({
       ...formInputs,
@@ -105,13 +105,33 @@ function CreateShipmentForm({ refreshShipments }) {
   };
 
   async function createShipment(event) {
-    // TODO: Validate containerId & carrierScac
     // TODO: Write validation tests
     event.preventDefault();
+
+    const { carrierScac, containerId } = formInputs;
+
+    if(!validateContainerId(containerId)) {
+      toast.warning(`Please ensure you've entered a valid container ID.`, {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId: 'invalid-container-id',
+      });
+
+      return;
+    }
+
+    if(!validateScac(carrierScac)) {
+      toast.warning(`Please ensure you've entered a valid carrier SCAC.`, {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId: 'invalid-carrier-scac',
+      });
+
+      return;
+    }
+
     await postShipment(formInputs);
     const shipmentTitle = createShipmentTitle(formInputs.carrierScac, formInputs.containerId);
     toast.success(`Shipment ${shipmentTitle} created.`, {
-      position: toast.POSITION.BOTTOM_RIGHT
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
     refreshShipments();
   }
@@ -192,7 +212,7 @@ function ShipmentList({ shipments, refreshShipments }) {
   async function deleteAll() {
     await deleteAllShipments();
     toast.success(`All shipments deleted.`, {
-      position: toast.POSITION.BOTTOM_RIGHT
+      position: toast.POSITION.BOTTOM_RIGHT,
     });
     refreshShipments();
   }
