@@ -177,10 +177,9 @@ function ShipmentList({ shipments, refreshShipments }) {
   return (
     <>
       <div id="shipment-list-header">
-        <h1>Current Shipments</h1>
         {creatingShipment ?
-          <button onClick={hideCreateShipmentForm}>Cancel</button> :
-          <button onClick={showCreateShipmentForm}>Create Shipment</button>
+          <button className="create-shipment-button" onClick={hideCreateShipmentForm}>Cancel</button> :
+          <button className="create-shipment-button" onClick={showCreateShipmentForm}>Create Shipment</button>
         }
         {creatingShipment && (
           <>
@@ -197,7 +196,7 @@ function ShipmentList({ shipments, refreshShipments }) {
       <div>
         <h2>Show:</h2>
         <label>
-          Active:
+          Active
           <input
             name="active"
             type="checkbox"
@@ -206,7 +205,7 @@ function ShipmentList({ shipments, refreshShipments }) {
           />
         </label>
         <label>
-          Inactive:
+          Inactive
           <input
             name="inactive"
             type="checkbox"

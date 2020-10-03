@@ -32,6 +32,7 @@ function App() {
         </a>
       </header>
       <div id="main">
+        <h1>Current Shipments</h1>
         {isLoading ? (
           <p className="App-loading-message">Loading...</p>
         ) : (
