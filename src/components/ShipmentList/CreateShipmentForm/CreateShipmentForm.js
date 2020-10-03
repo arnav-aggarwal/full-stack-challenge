@@ -75,30 +75,26 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       className={formInputs.isActive ? 'active' : 'inactive'}
     >
       <form onSubmit={createShipment}>
-        <label>
-          <h3>
-            Container ID
-          </h3>
-          <input
-            type="text"
-            name="containerId"
-            placeholder="Container ID"
-            value={formInputs.containerId}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          <h3>
-            Carrier SCAC
-          </h3>
-          <input
-            type="text"
-            name="carrierScac"
-            placeholder="Carrier SCAC"
-            value={formInputs.carrierScac}
-            onChange={handleInputChange}
-          />
-        </label>
+        <h3>
+          Container ID
+        </h3>
+        <input
+          type="text"
+          name="containerId"
+          placeholder="Container ID"
+          value={formInputs.containerId}
+          onChange={handleInputChange}
+        />
+        <h3>
+          Carrier SCAC
+        </h3>
+        <input
+          type="text"
+          name="carrierScac"
+          placeholder="Carrier SCAC"
+          value={formInputs.carrierScac}
+          onChange={handleInputChange}
+        />
         <br />
         <label>
           Active:
