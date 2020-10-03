@@ -7,11 +7,11 @@
   pointer-events: none;
 }
 
-.App-loading-message {
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  margin: 2em auto;
-}
+// .App-loading-message {
+//   text-transform: uppercase;
+//   letter-spacing: .2em;
+//   margin: 2em auto;
+// }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -69,4 +69,10 @@
   h1 {
     text-align: center;
   }
+
+  button {
+    margin-right: 2em;
+  }
+
+  margin-bottom: 2em;
 }

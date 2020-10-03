@@ -87,12 +87,14 @@ ShipmentListItem.propTypes = {
   refreshShipments: PropTypes.func,
 }
 
-function CreateShipmentForm({ refreshShipments }) {
-  const [formInputs, setFormInputs] = useState({
+function CreateShipmentForm({ refreshShipments, hideCreateShipmentForm, shipments }) {
+  const formInputDefaults = {
     containerId: '',
     carrierScac: '',
-    isActive: true
-  });
+    isActive: true,
+  };
+
+  const [formInputs, setFormInputs] = useState(formInputDefaults);
 
   function handleInputChange(event) {
     const { target } = event;
@@ -128,59 +130,77 @@ function CreateShipmentForm({ refreshShipments }) {
       return;
     }
 
-    await postShipment(formInputs);
     const shipmentTitle = createShipmentTitle(formInputs.carrierScac, formInputs.containerId);
+
+    if(shipments.find(item => item.carrierScac === carrierScac && item.containerId === containerId)) {
+      toast.warning(`You're already tracking shipment ${shipmentTitle}.`, {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId: `duplicate-entry-${shipmentTitle}`,
+      });
+
+      return;
+    }
+
+    await postShipment(formInputs);
     toast.success(`Shipment ${shipmentTitle} created.`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
     refreshShipments();
+    setFormInputs(formInputDefaults);
   }
 
-  // TODO: Clean up form, make modal?
   return (
-    <form onSubmit={createShipment}>
-      <label>
-        Container ID:
+    <div
+      id="create-shipment-form"
+      className={formInputs.isActive ? 'active' : 'inactive'}
+    >
+      <form onSubmit={createShipment}>
+        <label>
+          <h3>
+            Container ID
+          </h3>
+          <input
+            type="text"
+            name="containerId"
+            placeholder="Container ID"
+            value={formInputs.containerId}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+          <h3>
+            Carrier SCAC
+          </h3>
+          <input
+            type="text"
+            name="carrierScac"
+            placeholder="Carrier SCAC"
+            value={formInputs.carrierScac}
+            onChange={handleInputChange}
+          />
+        </label>
         <br />
-        <input
-          name="containerId"
-          placeholder="Container ID"
-          value={formInputs.containerId}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <label>
-        Carrier SCAC:
+        <label>
+          Active:
+          <input
+            name="isActive"
+            type="checkbox"
+            checked={formInputs.isActive}
+            onChange={handleInputChange}
+          />
+        </label>
         <br />
-        <input
-          name="carrierScac"
-          placeholder="Carrier SCAC"
-          value={formInputs.carrierScac}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <label>
-        Active:
-        <input
-          name="isActive"
-          type="checkbox"
-          checked={formInputs.isActive}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <input type="submit" value="Submit" />
-    </form>
+        <input type="submit" value="Submit" />
+        <button onClick={hideCreateShipmentForm}>Cancel</button>
+      </form>
+    </div>
   );
 }
 
 CreateShipmentForm.propTypes = {
   refreshShipments: PropTypes.func,
+  hideCreateShipmentForm: PropTypes.func,
+  shipments: PropTypes.array,
 };
 
 function ShipmentList({ shipments, refreshShipments }) {
@@ -219,23 +239,6 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   return (
     <>
-      <div id="shipment-list-header">
-        {creatingShipment ?
-          <button className="create-shipment-button" onClick={hideCreateShipmentForm}>Cancel</button> :
-          <button className="create-shipment-button" onClick={showCreateShipmentForm}>Create Shipment</button>
-        }
-        {creatingShipment && (
-          <>
-            <br />
-            <br />
-            <CreateShipmentForm
-              refreshShipments={refreshShipments}
-            />
-            <br />
-            <br />
-          </>
-        )}
-      </div>
       <div>
         <h2>Show:</h2>
         <label>
@@ -245,7 +248,7 @@ function ShipmentList({ shipments, refreshShipments }) {
             type="checkbox"
             checked={showing.active}
             onChange={handleInputChange}
-          />
+            />
         </label>
         <label>
           Inactive
@@ -254,8 +257,25 @@ function ShipmentList({ shipments, refreshShipments }) {
             type="checkbox"
             checked={showing.inactive}
             onChange={handleInputChange}
+            />
+        </label>
+      </div>
+      <div id="create-shipment-container">
+        {creatingShipment && (
+          <CreateShipmentForm
+            refreshShipments={refreshShipments}
+            hideCreateShipmentForm={hideCreateShipmentForm}
+            shipments={shipments}
           />
-      </label>
+        )}
+        {!creatingShipment && (
+          <button
+            className="create-shipment-button"
+            onClick={showCreateShipmentForm}
+          >
+            Create Shipment
+          </button>
+        )}
       </div>
       <ul className="ShipmentList">
         {shipmentsToShow.map((shipment) => (
