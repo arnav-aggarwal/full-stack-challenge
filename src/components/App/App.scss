@@ -65,14 +65,23 @@
 #main {
   margin: 0 auto;
   width: 50vw;
+  margin-bottom: 2em;
 
   h1 {
     text-align: center;
   }
 
-  button {
-    margin-right: 2em;
+  button.pure-button {
+    border: 1px solid grey;
+
+    &.button-warning {
+      border: 1px solid white;
+      color: white;
+      background: rgb(223, 117, 20);
+    }
   }
 
-  margin-bottom: 2em;
+  button, input[type=submit] {
+    margin-right: 1em;
+  }
 }

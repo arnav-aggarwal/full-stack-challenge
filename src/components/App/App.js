@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 
-import { getShipments } from "../../api";
-import ShipmentList from "../ShipmentList";
-import logo from "./logo.svg";
+import { getShipments } from '../../api';
+import ShipmentList from '../ShipmentList';
+import logo from './logo.svg';
 
-import "./App.scss";
+import './App.scss';
+import 'react-toastify/dist/ReactToastify.min.css';
+import 'purecss/build/buttons-min.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { postShipment, changeActiveStatus, deleteShipment, deleteAllShipments } from "../../api";
+import { postShipment, changeActiveStatus, deleteShipment, deleteAllShipments } from '../../api';
 
-import 'react-toastify/dist/ReactToastify.css';
-// import 'react-toastify/dist/ReactToastify.min.css';
-import "./ShipmentList.scss";
+import './ShipmentList.scss';
 
 function formatDate(dateStr) {
   const d = new Date(dateStr);
@@ -34,8 +32,13 @@ function ShipmentListItem({
 }) {
   // TODO: Make items draggable
   const shipmentTitle =  createShipmentTitle(carrierScac, containerId);
-  const MarkInactiveButton = () => <button onClick={markInactive}>Mark Inactive</button>;
-  const MarkActiveButton = () => <button onClick={markActive}>Mark Active</button>;
+  const MarkInactiveButton = () => (
+    <button className="pure-button" onClick={markInactive}>Mark Inactive</button>
+  );
+
+  const MarkActiveButton = () => (
+    <button className="pure-button" onClick={markActive}>Mark Active</button>
+  );
 
   async function markInactive() {
     await changeActiveStatus(id, { isActive: false });
@@ -68,7 +71,7 @@ function ShipmentListItem({
       </p>
       <p>Created {formatDate(createdAt)}</p>
       {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
-      <button onClick={removeShipment}>Delete</button>
+      <button className="pure-button" onClick={removeShipment}>Delete</button>
     </li>
   );
 }
@@ -190,8 +193,8 @@ function CreateShipmentForm({ refreshShipments, hideCreateShipmentForm, shipment
           />
         </label>
         <br />
-        <input type="submit" value="Submit" />
-        <button onClick={hideCreateShipmentForm}>Cancel</button>
+        <input className="pure-button pure-button-primary" type="submit" value="Submit" />
+        <button className="pure-button" onClick={hideCreateShipmentForm}>Cancel</button>
       </form>
     </div>
   );
@@ -270,7 +273,7 @@ function ShipmentList({ shipments, refreshShipments }) {
         )}
         {!creatingShipment && (
           <button
-            className="create-shipment-button"
+            className="create-shipment-button pure-button"
             onClick={showCreateShipmentForm}
           >
             Create Shipment
@@ -286,8 +289,8 @@ function ShipmentList({ shipments, refreshShipments }) {
           />
         ))}
       </ul>
-      <button onClick={() => refreshShipments()}>Refresh List</button>
-      <button onClick={deleteAll}>Delete List</button>
+      <button className="pure-button" onClick={() => refreshShipments()}>Refresh List</button>
+      <button className="pure-button button-warning" onClick={deleteAll}>Delete List</button>
     </>
   );
 }
