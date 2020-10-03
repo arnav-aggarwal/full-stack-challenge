@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
-import ShipmentPropType from './shipmentPropType';
-import { createShipmentTitle, formatDate } from './helpers';
-import { changeActiveStatus, deleteShipment } from '../../api';
+import ShipmentPropType from '../shipmentPropType';
+import { createShipmentTitle, formatDate } from '../helpers';
+import { changeActiveStatus, deleteShipment } from '../../../api';
 
 import './ShipmentListItem.scss';
 

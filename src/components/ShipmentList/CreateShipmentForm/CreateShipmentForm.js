@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
-import { validateContainerId, validateScac, createShipmentTitle } from './helpers';
-import { postShipment } from '../../api';
+import { validateContainerId, validateScac, createShipmentTitle } from '../helpers';
+import { postShipment } from '../../../api';
 
 import './CreateShipmentForm.scss';
 
