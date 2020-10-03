@@ -1,68 +1,7 @@
 .ShipmentList {
-    // margin: 0 auto;
     width: 50vw;
     text-align: left;
     padding: 0;
-
-    .ShipmentListItem {
-        list-style-type: none;
-        padding: .5em;
-        margin: 1em auto;
-        box-shadow: 0 0 5px #ccc;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-
-        &.active {
-            border-left: 6px solid green;
-            background-color: rgb(227, 245, 227);
-        }
-
-        &.inactive {
-            border-left: 6px solid #aaa;
-            background-color: rgb(245, 245, 245);
-        }
-
-        .ShipmentListItem-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-    }
-}
-
-.Toastify__toast--warning {
-    background-color: #ebbc00;
-}
-
-#create-shipment-form {
-    box-shadow: 0 0 5px #ccc;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: .5em;
-
-    &.active {
-        border-left: 6px solid green;
-        background-color: rgb(227, 245, 227);
-    }
-
-    &.inactive {
-        border-left: 6px solid #aaa;
-        background-color: rgb(245, 245, 245);
-    }
-
-    h3 {
-        margin: 0.5em 0;
-    }
-
-    input[type=text] {
-        padding: 2px 10px;
-        line-height: 28px;
-        width: 200px;
-        font-size: 14px;
-    }
-
-    input[type=text], input[type=checkbox] {
-        margin-bottom: 1em;
-    }
 }
 
 #create-shipment-container {

@@ -6,6 +6,8 @@ import ShipmentPropType from './shipmentPropType';
 import { createShipmentTitle, formatDate } from './helpers';
 import { changeActiveStatus, deleteShipment } from '../../api';
 
+import './ShipmentListItem.scss';
+
 export default function ShipmentListItem({
   shipment: { id, carrierScac, containerId, createdAt, isActive },
   refreshShipments,

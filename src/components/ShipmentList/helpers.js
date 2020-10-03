@@ -7,7 +7,6 @@ export function formatDate(dateStr) {
   return d.toLocaleString();
 }
 
-
 export function validateContainerId(id) {
   return /[A-Z]{3}(U|J|Z)\d{7}/.test(id);
 }

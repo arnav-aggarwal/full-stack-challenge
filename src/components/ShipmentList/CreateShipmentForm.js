@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import { validateContainerId, validateScac, createShipmentTitle } from './helpers';
 import { postShipment } from '../../api';
 
+import './CreateShipmentForm.scss';
+
 export default function CreateShipmentForm({ refreshShipments, hideCreateShipmentForm, shipments }) {
   const formInputDefaults = {
     containerId: '',
