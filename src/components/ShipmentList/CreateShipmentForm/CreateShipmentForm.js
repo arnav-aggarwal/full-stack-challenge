@@ -72,12 +72,12 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
   return (
     <div
       id="create-shipment-form"
-      className={`ShipmentListItem ${formInputs.isActive ? 'active' : 'inactive'}`}
+      className={`shipment-list-item ${formInputs.isActive ? 'active' : 'inactive'}`}
     >
       <form onSubmit={createShipment}>
-        <p className="ShipmentListItem-title">
+        <h2>
           New Shipment
-        </p>
+        </h2>
         <h3>
           Carrier SCAC
         </h3>

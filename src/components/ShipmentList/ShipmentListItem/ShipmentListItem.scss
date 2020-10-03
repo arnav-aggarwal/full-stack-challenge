@@ -1,4 +1,4 @@
-.ShipmentListItem {
+.shipment-list-item {
     list-style-type: none;
     padding: .5em;
     margin: 1em auto;
@@ -14,10 +14,5 @@
     &.inactive {
         border-left: 6px solid #aaa;
         background-color: rgb(245, 245, 245);
-    }
-
-    .ShipmentListItem-title {
-        font-size: 1.4rem;
-        font-weight: bold;
     }
 }

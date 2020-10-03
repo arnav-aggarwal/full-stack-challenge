@@ -46,10 +46,10 @@ export default function ShipmentListItem({
   }
 
   return (
-    <li className={`ShipmentListItem ${isActive ? 'active' : 'inactive'}`}>
-      <p className="ShipmentListItem-title">
+    <li className={`shipment-list-item ${isActive ? 'active' : 'inactive'}`}>
+      <h2>
         {shipmentTitle}
-      </p>
+      </h2>
       <p>Created {formatDate(createdAt)}</p>
       {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
       <button className="pure-button" onClick={removeShipment}>Delete</button>
