@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, Slide } from 'react-toastify';
+
 import { getShipments } from "../../api";
 import ShipmentList from "../ShipmentList";
 import logo from "./logo.svg";
+
 import "./App.scss";
 
 function App() {
@@ -39,6 +42,7 @@ function App() {
           <ShipmentList shipments={shipments} refreshShipments={loadShipments} />
         )}
       </div>
+      <ToastContainer transition={Slide} />
     </div>
   );
 }

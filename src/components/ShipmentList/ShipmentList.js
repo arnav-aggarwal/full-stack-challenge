@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from 'react-toastify';
 import { postShipment, changeActiveStatus, deleteShipment, deleteAllShipments } from "../../api";
+
+import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.min.css';
 import "./ShipmentList.scss";
 
 function formatDate(dateStr) {
@@ -20,34 +24,47 @@ function formatContainerId(id) {
   return `${id.slice(0, 4)}-${id.slice(4, -1)}-${id.slice(-1)}`
 }
 
+function createShipmentTitle(scac, containerId) {
+  return `${scac} / ${formatContainerId(containerId)}`;
+}
+
 function ShipmentListItem({
   shipment: { id, carrierScac, containerId, createdAt, isActive },
   refreshShipments,
 }) {
-  // TODO: Toast notifications for active/inactive button
   // TODO: Make items draggable
+  const shipmentTitle =  createShipmentTitle(carrierScac, containerId);
   const MarkInactiveButton = () => <button onClick={markInactive}>Mark Inactive</button>;
   const MarkActiveButton = () => <button onClick={markActive}>Mark Active</button>;
 
   async function markInactive() {
     await changeActiveStatus(id, { isActive: false });
+    toast.success(`Shipment ${shipmentTitle} marked inactive.`, {
+      position: toast.POSITION.BOTTOM_RIGHT
+    });
     refreshShipments();
   }
 
   async function markActive() {
     await changeActiveStatus(id, { isActive: true });
+    toast.success(`Shipment ${shipmentTitle} marked active.`, {
+      position: toast.POSITION.BOTTOM_RIGHT
+    });
     refreshShipments();
   }
 
   async function removeShipment() {
     await deleteShipment(id);
+    toast.success(`Shipment ${shipmentTitle} deleted.`, {
+      position: toast.POSITION.BOTTOM_RIGHT
+    });
     refreshShipments();
   }
 
   return (
     <li className={`ShipmentListItem ${isActive ? 'active' : 'inactive'}`}>
       <p className="ShipmentListItem-title">
-        {carrierScac} / {formatContainerId(containerId)}
+        {shipmentTitle}
       </p>
       <p>Created {formatDate(createdAt)}</p>
       {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
@@ -90,9 +107,12 @@ function CreateShipmentForm({ refreshShipments }) {
   async function createShipment(event) {
     // TODO: Validate containerId & carrierScac
     // TODO: Write validation tests
-    // TODO: Toast notifications
     event.preventDefault();
     await postShipment(formInputs);
+    const shipmentTitle = createShipmentTitle(formInputs.carrierScac, formInputs.containerId);
+    toast.success(`Shipment ${shipmentTitle} created.`, {
+      position: toast.POSITION.BOTTOM_RIGHT
+    });
     refreshShipments();
   }
 
@@ -171,6 +191,9 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   async function deleteAll() {
     await deleteAllShipments();
+    toast.success(`All shipments deleted.`, {
+      position: toast.POSITION.BOTTOM_RIGHT
+    });
     refreshShipments();
   }
 
