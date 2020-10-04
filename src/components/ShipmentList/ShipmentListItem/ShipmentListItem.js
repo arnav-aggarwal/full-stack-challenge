@@ -51,8 +51,10 @@ export default function ShipmentListItem({
         {shipmentTitle}
       </h2>
       <p>Created {formatDate(createdAt)}</p>
-      {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
-      <button className="pure-button" onClick={removeShipment}>Delete</button>
+      <div className="active-and-delete-buttons">
+        {isActive ? <MarkInactiveButton /> : <MarkActiveButton />}
+        <button className="pure-button" onClick={removeShipment}>Delete</button>
+      </div>
     </li>
   );
 }

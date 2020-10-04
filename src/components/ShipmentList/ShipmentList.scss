@@ -1,6 +1,12 @@
 #main {
-  button {
+  button:first-of-type {
     margin-right: 1em;
+  }
+
+  @media(max-width: 600px) {
+    button {
+      height: 40px;
+    }
   }
 
   button.pure-button {
@@ -23,12 +29,26 @@
     }
   }
 
-  #header-buttons {
-    display:flex;
-    margin-bottom: 2em;
+  @media(min-width: 600px) {
+    #header-buttons-wrapper {
+      display: flex;
+      margin-bottom: 2em;
 
-    >div {
-      flex: 1;
+      >div {
+        flex: 1;
+      }
+    }
+  }
+
+  @media(max-width: 600px) {
+    #header-buttons-wrapper {
+      .header-buttons-container {
+        display: flex;
+
+        button {
+          flex: 1;
+        }
+      }
     }
   }
 
@@ -45,6 +65,15 @@
 
     &.button-container {
       text-align: center;
+
+      @media(max-width: 600px) {
+        display: flex;
+
+        button {
+          flex: 1;
+          margin-right: 0;
+        }
+      }
     }
   }
 
@@ -52,5 +81,23 @@
     width: 50vw;
     text-align: left;
     padding: 0;
+
+    @media(max-width: 1200px) {
+      width: 70vw;
+    }
+
+    @media(max-width: 800px) {
+      width: 90vw;
+    }
+  }
+
+  #footer-buttons {
+    @media(max-width: 600px) {
+      display: flex;
+
+      button {
+        flex: 1;
+      }
+    }
   }
 }

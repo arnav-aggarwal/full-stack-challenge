@@ -72,40 +72,44 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   return (
     <div id="main">
-      <div id="header-buttons" className="header-controls">
+      <div id="header-buttons-wrapper" className="header-controls">
         <div>
           <h3>Show</h3>
-          <button
-            name="active"
-            className={`pure-button ${showing.active ? 'pure-button-primary' : ''}`}
-            onClick={handleShowingChange}
-          >
-            Active
-          </button>
-          <button
-            name="inactive"
-            className={`pure-button ${showing.inactive ? 'pure-button-primary' : ''}`}
-            onClick={handleShowingChange}
-          >
-            Inactive
-          </button>
+          <div className="header-buttons-container">
+            <button
+              name="active"
+              className={`pure-button ${showing.active ? 'pure-button-primary' : ''}`}
+              onClick={handleShowingChange}
+            >
+              Active
+            </button>
+            <button
+              name="inactive"
+              className={`pure-button ${showing.inactive ? 'pure-button-primary' : ''}`}
+              onClick={handleShowingChange}
+            >
+              Inactive
+            </button>
+          </div>
         </div>
         <div>
           <h3>Order by</h3>
-          <button
-            name="date"
-            className={`pure-button ${displayOrder === 'date' ? 'pure-button-primary' : ''}`}
-            onClick={orderByDate}
-          >
-            Date
-          </button>
-          <button
-            name="scac"
-            className={`pure-button ${displayOrder === 'scac' ? 'pure-button-primary' : ''}`}
-            onClick={orderByScac}
-          >
-            SCAC
-          </button>
+          <div className="header-buttons-container">
+            <button
+              name="date"
+              className={`pure-button ${displayOrder === 'date' ? 'pure-button-primary' : ''}`}
+              onClick={orderByDate}
+            >
+              Date
+            </button>
+            <button
+              name="scac"
+              className={`pure-button ${displayOrder === 'scac' ? 'pure-button-primary' : ''}`}
+              onClick={orderByScac}
+            >
+              SCAC
+            </button>
+          </div>
         </div>
       </div>
       <div id="header-search" className="header-controls">
@@ -124,7 +128,7 @@ function ShipmentList({ shipments, refreshShipments }) {
           />
         ) : (
           <button
-            className="create-shipment-button pure-button"
+            className="create-shipment-button pure-button pure-button-primary"
             onClick={showCreateShipmentForm}
           >
             + Create Shipment
@@ -140,8 +144,10 @@ function ShipmentList({ shipments, refreshShipments }) {
           />
         ))}
       </ul>
-      <button className="pure-button" onClick={() => refreshShipments()}>Refresh List</button>
-      <button className="pure-button button-warning" onClick={deleteAll}>Delete List</button>
+      <div id="footer-buttons">
+        <button className="pure-button" onClick={() => refreshShipments()}>Refresh List</button>
+        <button className="pure-button button-warning" onClick={deleteAll}>Delete List</button>
+      </div>
     </div>
   );
 }

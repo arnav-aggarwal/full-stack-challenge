@@ -6,4 +6,20 @@
   input {
     margin-bottom: 1em;
   }
+
+  @media(max-width: 600px) {
+    // display: relative;
+
+    // input {
+    //   width: 100%;
+    // }
+
+    #submit-buttons {
+      display: flex;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
 }

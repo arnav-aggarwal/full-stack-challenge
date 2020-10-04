@@ -113,21 +113,24 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
           />
           Active
         </label>
-        <br />
-        <button
-          type="button"
-          className="pure-button pure-button-primary"
-          onClick={createShipment}
-        >
-          Submit
-        </button>
-        <button
-          type="button"
-          className="pure-button"
-          onClick={hideCreateShipmentForm}
-        >
-          Cancel
-        </button>
+        {/* <br /> */}
+        <div id="submit-buttons">
+          <button
+            type="button"
+            className="pure-button pure-button-primary"
+            onClick={createShipment}
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            className="pure-button"
+            onClick={hideCreateShipmentForm}
+          >
+            Cancel
+          </button>
+
+        </div>
       </div>
     </div>
   );
