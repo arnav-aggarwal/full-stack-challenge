@@ -131,7 +131,7 @@ function ShipmentList({ shipments, refreshShipments }) {
           </button>
         )}
       </div>
-      <ul className="shipment-list">
+      <ul id="shipment-list">
         {shipmentsToShow.map((shipment) => (
           <ShipmentListItem
             key={`shipment-${shipment.id}`}
