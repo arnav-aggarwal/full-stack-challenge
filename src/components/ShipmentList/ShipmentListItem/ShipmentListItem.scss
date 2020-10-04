@@ -1,18 +1,18 @@
 .shipment-list-item {
-    list-style-type: none;
-    padding: .5em;
-    margin: 1em auto;
-    box-shadow: 0 0 5px #ccc;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+  list-style-type: none;
+  padding: .5em;
+  margin: 1em auto;
+  box-shadow: 0 0 5px #ccc;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 
-    &.active {
-        border-left: 6px solid green;
-        background-color: rgb(227, 245, 227);
-    }
+  &.active {
+    border-left: 6px solid green;
+    background-color: rgb(227, 245, 227);
+  }
 
-    &.inactive {
-        border-left: 6px solid #aaa;
-        background-color: rgb(245, 245, 245);
-    }
+  &.inactive {
+    border-left: 6px solid #aaa;
+    background-color: rgb(245, 245, 245);
+  }
 }

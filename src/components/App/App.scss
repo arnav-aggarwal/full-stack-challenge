@@ -1,58 +1,60 @@
-.App-logo {
-  height: 8vmin;
-  pointer-events: none;
-}
+#app {
+  #app-header {
+    background-color: #282c34;
+    padding: 0.5em 0;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+    color: white;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-swing infinite 12s linear;
+    #app-logo {
+      height: 8vmin;
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      #app-logo {
+        animation: app-logo-swing infinite 12s linear;
+      }
+    }
+
+    #app-link {
+      color: #FFDD01;
+      text-decoration: none;
+      transition: all ease-in-out 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      border-bottom: 2px dotted transparent;
+    }
+
+    #app-link:hover {
+      border-color: #FFDD01;
+    }
+
+    @keyframes app-logo-swing {
+      20% {
+        transform: rotate(15deg);
+      }
+      40% {
+        transform: rotate(-10deg);
+      }
+      60% {
+        transform: rotate(5deg);
+      }
+      80% {
+        transform: rotate(-5deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
+    }
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  padding: 0.5em 0;
-  min-height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(8px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #FFDD01;
-  text-decoration: none;
-  transition: all ease-in-out 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  border-bottom: 2px dotted transparent;
-}
-
-.App-link:hover {
-  border-color: #FFDD01;
-}
-
-@keyframes App-logo-swing {
-  20% {
-    transform: rotate(15deg);
-  }
-  40% {
-    transform: rotate(-10deg);
-  }
-  60% {
-    transform: rotate(5deg);
-  }
-  80% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-#main {
+#main-container {
   margin: 0 auto;
   width: 50vw;
   margin-bottom: 2em;
@@ -60,33 +62,4 @@
   h1 {
     text-align: center;
   }
-
-  button.pure-button {
-    border: 1px solid grey;
-
-    &.button-warning {
-      color: white;
-      border: 1 px solid rgb(223, 117, 20);
-      background: rgb(223, 117, 20);
-    }
-
-    &.pure-button-primary {
-      border: 1px solid #0078e7;
-    }
-  }
-
-  button, input[type=submit] {
-    margin-right: 1em;
-  }
-}
-
-.Toastify__toast--warning {
-  background-color: #ebbc00;
-}
-
-input[type=text] {
-  padding: 2px 10px;
-  line-height: 28px;
-  width: 200px;
-  font-size: 14px;
 }

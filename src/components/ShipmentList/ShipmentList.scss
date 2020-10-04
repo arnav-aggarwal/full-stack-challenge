@@ -1,36 +1,56 @@
-.shipment-list {
-    width: 50vw;
-    text-align: left;
-    padding: 0;
-}
+#main {
+  button {
+  margin-right: 1em;
+  }
 
-#create-shipment-container {
-    margin: 1em auto;
+  button.pure-button {
+  border: 1px solid grey;
 
-    &.button-container {
-        text-align: center;
-    }
-}
+  &.button-warning {
+    color: white;
+    border: 1 px solid rgb(223, 117, 20);
+    background: rgb(223, 117, 20);
+  }
 
-#controls, #search {
+  &.pure-button-primary {
+    border: 1px solid #0078e7;
+  }
+  }
+
+  .header-controls {
     h3 {
-        margin: 0.75em 0;
+      margin: 0.75em 0;
     }
-}
+  }
 
-#controls {
+  #header-buttons {
     display:flex;
     margin-bottom: 2em;
 
     >div {
-        flex: 1;
+      flex: 1;
     }
-}
+  }
 
-#search {
+  #header-search {
     margin-bottom: 2em;
 
     input {
-        width: calc(100% - 20px);
+      width: calc(100% - 20px);
     }
+  }
+
+  #create-shipment-container {
+    margin: 1em auto;
+
+    &.button-container {
+      text-align: center;
+    }
+  }
+
+  .shipment-list {
+    width: 50vw;
+    text-align: left;
+    padding: 0;
+  }
 }

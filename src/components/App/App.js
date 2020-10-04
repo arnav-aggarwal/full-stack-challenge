@@ -29,14 +29,14 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a className="App-link" href="/">
+    <div id="app">
+      <header id="app-header">
+        <img src={logo} id="app-logo" alt="logo" />
+        <a id="app-link" href="/">
           Shipments
         </a>
       </header>
-      <div id="main">
+      <div id="main-container">
         {isLoading ?
           <h1>Loading...</h1> :
           <h1>Current Shipments</h1>

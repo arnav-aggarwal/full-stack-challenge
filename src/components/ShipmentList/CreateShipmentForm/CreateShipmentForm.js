@@ -79,7 +79,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       id="create-shipment-form"
       className={`shipment-list-item ${formInputs.isActive ? 'active' : 'inactive'}`}
     >
-      <form onSubmit={createShipment}>
+      <form>
         <h2>
           New Shipment
         </h2>
@@ -105,17 +105,29 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
         />
         <br />
         <label>
-          Active:
           <input
             type="checkbox"
             name="isActive"
             checked={formInputs.isActive}
             onChange={handleInputChange}
           />
+          Active
         </label>
         <br />
-        <input className="pure-button pure-button-primary" type="submit" value="Submit" />
-        <button className="pure-button" onClick={hideCreateShipmentForm}>Cancel</button>
+        <button
+          type="button"
+          className="pure-button pure-button-primary"
+          onClick={createShipment}
+        >
+          Submit
+        </button>
+        <button
+          type="button"
+          className="pure-button"
+          onClick={hideCreateShipmentForm}
+        >
+          Cancel
+        </button>
       </form>
     </div>
   );

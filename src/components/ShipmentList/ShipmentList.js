@@ -71,8 +71,8 @@ function ShipmentList({ shipments, refreshShipments }) {
   }
 
   return (
-    <>
-      <div id="controls">
+    <div id="main">
+      <div id="header-buttons" className="header-controls">
         <div>
           <h3>Show</h3>
           <button
@@ -108,7 +108,7 @@ function ShipmentList({ shipments, refreshShipments }) {
           </button>
         </div>
       </div>
-      <div id="search">
+      <div id="header-search" className="header-controls">
         <h3>Search</h3>
         <input type="text" onChange={handleSearch} placeholder="Enter carrier SCAC or container ID"></input>
       </div>
@@ -142,7 +142,7 @@ function ShipmentList({ shipments, refreshShipments }) {
       </ul>
       <button className="pure-button" onClick={() => refreshShipments()}>Refresh List</button>
       <button className="pure-button button-warning" onClick={deleteAll}>Delete List</button>
-    </>
+    </div>
   );
 }
 
