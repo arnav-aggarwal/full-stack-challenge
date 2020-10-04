@@ -15,17 +15,4 @@
     border-left: 6px solid #aaa;
     background-color: rgb(245, 245, 245);
   }
-
-  @media(max-width: 600px) {
-    .active-and-delete-buttons {
-      display: flex;
-
-      button {
-        flex: 1;
-        margin-right: 0;
-      }
-    }
-
-  }
-
 }

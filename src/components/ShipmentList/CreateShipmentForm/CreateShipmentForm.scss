@@ -11,13 +11,5 @@
     input[type=text] {
       width: calc(100% - 24px);
     }
-
-    #submit-buttons {
-      display: flex;
-
-      button {
-        flex: 1;
-      }
-    }
   }
 }

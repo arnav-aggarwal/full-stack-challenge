@@ -70,4 +70,14 @@
   @media(max-width: 800px) {
     width: 90vw;
   }
+
+  @media(max-width: 600px) {
+    .two-button-container {
+      display: flex;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
 }

@@ -75,7 +75,7 @@ function ShipmentList({ shipments, refreshShipments }) {
       <div id="header-buttons-wrapper" className="header-controls">
         <div>
           <h3>Show</h3>
-          <div className="header-buttons-container">
+          <div className="two-button-container">
             <button
               name="active"
               className={`pure-button ${showing.active ? 'pure-button-primary' : ''}`}
@@ -94,7 +94,7 @@ function ShipmentList({ shipments, refreshShipments }) {
         </div>
         <div>
           <h3>Order by</h3>
-          <div className="header-buttons-container">
+          <div className="two-button-container">
             <button
               name="date"
               className={`pure-button ${displayOrder === 'date' ? 'pure-button-primary' : ''}`}
@@ -144,7 +144,7 @@ function ShipmentList({ shipments, refreshShipments }) {
           />
         ))}
       </ul>
-      <div id="footer-buttons">
+      <div className="two-button-container">
         <button className="pure-button" onClick={() => refreshShipments()}>Refresh List</button>
         <button className="pure-button button-warning" onClick={deleteAll}>Delete List</button>
       </div>

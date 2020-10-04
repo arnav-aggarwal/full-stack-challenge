@@ -112,7 +112,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
           />
           Active
         </label>
-        <div id="submit-buttons">
+        <div className="two-button-container">
           <button
             type="button"
             className="pure-button pure-button-primary"

@@ -40,18 +40,6 @@
     }
   }
 
-  @media(max-width: 600px) {
-    #header-buttons-wrapper {
-      .header-buttons-container {
-        display: flex;
-
-        button {
-          flex: 1;
-        }
-      }
-    }
-  }
-
   #header-search {
     margin-bottom: 2em;
 
@@ -88,16 +76,6 @@
 
     @media(max-width: 800px) {
       width: 90vw;
-    }
-  }
-
-  #footer-buttons {
-    @media(max-width: 600px) {
-      display: flex;
-
-      button {
-        flex: 1;
-      }
     }
   }
 }
