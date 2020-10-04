@@ -1,20 +1,20 @@
 #main {
   button {
-  margin-right: 1em;
+    margin-right: 1em;
   }
 
   button.pure-button {
-  border: 1px solid grey;
+    border: 1px solid grey;
 
-  &.button-warning {
-    color: white;
-    border: 1 px solid rgb(223, 117, 20);
-    background: rgb(223, 117, 20);
-  }
+    &.button-warning {
+      color: white;
+      border: 1 px solid rgb(223, 117, 20);
+      background: rgb(223, 117, 20);
+    }
 
-  &.pure-button-primary {
-    border: 1px solid #0078e7;
-  }
+    &.pure-button-primary {
+      border: 1px solid #0078e7;
+    }
   }
 
   .header-controls {
