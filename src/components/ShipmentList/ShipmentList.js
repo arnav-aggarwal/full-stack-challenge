@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import ShipmentListItem from './ShipmentListItem';
 import CreateShipmentForm from './CreateShipmentForm';
 import ShipmentPropType from './shipmentPropType';
+import { cleanContainerId } from './helpers';
 import { deleteAllShipments } from '../../api';
 
 import './ShipmentList.scss';
@@ -22,7 +23,7 @@ function ShipmentList({ shipments, refreshShipments }) {
   function handleShowingChange(event) {
     setShowing({
       ...showing,
-      [event.target.name]: event.target.checked,
+      [event.target.name]: !showing[event.target.name]
     });
   }
 
@@ -55,6 +56,12 @@ function ShipmentList({ shipments, refreshShipments }) {
     });
   }
 
+  const [searchValue, updateSearchValue] = useState('');
+  const handleSearch = event => updateSearchValue(cleanContainerId(event.target.value).toUpperCase());
+  shipmentsToShow = shipmentsToShow.filter(
+    item => item.carrierScac.includes(searchValue) || item.containerId.includes(searchValue)
+  );
+
   async function deleteAll() {
     await deleteAllShipments();
     toast.success(`All shipments deleted.`, {
@@ -65,49 +72,50 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   return (
     <>
-      <div>
-        <h2>Show:</h2>
-        <label>
-          Active
-          <input
+      <div id="controls">
+        <div>
+          <h3>Show:</h3>
+          <button
             name="active"
-            type="checkbox"
-            checked={showing.active}
-            onChange={handleShowingChange}
-            />
-        </label>
-        <label>
-          Inactive
-          <input
+            className={`pure-button ${showing.active ? 'pure-button-primary' : ''}`}
+            onClick={handleShowingChange}
+          >
+            Active
+          </button>
+          <button
             name="inactive"
-            type="checkbox"
-            checked={showing.inactive}
-            onChange={handleShowingChange}
-            />
-        </label>
+            className={`pure-button ${showing.inactive ? 'pure-button-primary' : ''}`}
+            onClick={handleShowingChange}
+          >
+            Inactive
+          </button>
+        </div>
+        <div>
+          <h3>Order by:</h3>
+          <button
+            name="date"
+            className={`pure-button ${displayOrder === 'date' ? 'pure-button-primary' : ''}`}
+            onClick={orderByDate}
+          >
+            Date
+          </button>
+          <button
+            name="scac"
+            className={`pure-button ${displayOrder === 'scac' ? 'pure-button-primary' : ''}`}
+            onClick={orderByScac}
+          >
+            SCAC
+          </button>
+        </div>
       </div>
-      <div>
-        <h2>Order by:</h2>
-        <label>
-          Date Created
-          <input
-            // name="date"
-            type="checkbox"
-            checked={displayOrder === 'date'}
-            onChange={orderByDate}
-            />
-        </label>
-        <label>
-          Carrier SCAC
-          <input
-            // name="scac"
-            type="checkbox"
-            checked={displayOrder === 'scac'}
-            onChange={orderByScac}
-            />
-        </label>
+      <div id="search">
+        <h3>Search:</h3>
+        <input type="text" onChange={handleSearch} placeholder="Enter carrier SCAC or container ID"></input>
       </div>
-      <div id="create-shipment-container">
+      <div
+        id="create-shipment-container"
+        className={creatingShipment ? 'form-container' : 'button-container'}
+      >
         {creatingShipment ? (
           <CreateShipmentForm
             refreshShipments={refreshShipments}
@@ -119,7 +127,7 @@ function ShipmentList({ shipments, refreshShipments }) {
             className="create-shipment-button pure-button"
             onClick={showCreateShipmentForm}
           >
-            Create Shipment
+            + Create Shipment
           </button>
         )}
       </div>

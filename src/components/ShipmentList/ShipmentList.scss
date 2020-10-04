@@ -6,4 +6,25 @@
 
 #create-shipment-container {
     margin: 1em auto;
+
+    &.button-container {
+        text-align: center;
+    }
+}
+
+#controls {
+    display:flex;
+    margin-bottom: 2em;
+
+    >div {
+        flex: 1;
+    }
+}
+
+#search {
+    margin-bottom: 2em;
+
+    input {
+        width: calc(100% - 20px);
+    }
 }

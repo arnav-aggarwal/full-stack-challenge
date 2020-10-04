@@ -65,9 +65,13 @@
     border: 1px solid grey;
 
     &.button-warning {
-      border: 1px solid white;
       color: white;
+      border: 1 px solid rgb(223, 117, 20);
       background: rgb(223, 117, 20);
+    }
+
+    &.pure-button-primary {
+      border: 1px solid #0078e7;
     }
   }
 
@@ -78,4 +82,11 @@
 
 .Toastify__toast--warning {
   background-color: #ebbc00;
+}
+
+input[type=text] {
+  padding: 2px 10px;
+  line-height: 28px;
+  width: 200px;
+  font-size: 14px;
 }
