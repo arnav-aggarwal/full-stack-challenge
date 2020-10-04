@@ -8,11 +8,9 @@
   }
 
   @media(max-width: 600px) {
-    // display: relative;
-
-    // input {
-    //   width: 100%;
-    // }
+    input {
+      width: calc(100% - 24px);
+    }
 
     #submit-buttons {
       display: flex;

@@ -79,7 +79,6 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       id="create-shipment-form"
       className={`shipment-list-item ${formInputs.isActive ? 'active' : 'inactive'}`}
     >
-      <div>
         <h2>
           New Shipment
         </h2>
@@ -113,7 +112,6 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
           />
           Active
         </label>
-        {/* <br /> */}
         <div id="submit-buttons">
           <button
             type="button"
@@ -131,7 +129,6 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
           </button>
 
         </div>
-      </div>
     </div>
   );
 }
