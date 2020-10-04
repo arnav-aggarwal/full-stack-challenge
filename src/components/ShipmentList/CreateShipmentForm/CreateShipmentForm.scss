@@ -8,7 +8,7 @@
   }
 
   @media(max-width: 600px) {
-    input {
+    input[type=text] {
       width: calc(100% - 24px);
     }
 
