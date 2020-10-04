@@ -74,7 +74,7 @@ function ShipmentList({ shipments, refreshShipments }) {
     <>
       <div id="controls">
         <div>
-          <h3>Show:</h3>
+          <h3>Show</h3>
           <button
             name="active"
             className={`pure-button ${showing.active ? 'pure-button-primary' : ''}`}
@@ -91,7 +91,7 @@ function ShipmentList({ shipments, refreshShipments }) {
           </button>
         </div>
         <div>
-          <h3>Order by:</h3>
+          <h3>Order by</h3>
           <button
             name="date"
             className={`pure-button ${displayOrder === 'date' ? 'pure-button-primary' : ''}`}
@@ -109,7 +109,7 @@ function ShipmentList({ shipments, refreshShipments }) {
         </div>
       </div>
       <div id="search">
-        <h3>Search:</h3>
+        <h3>Search</h3>
         <input type="text" onChange={handleSearch} placeholder="Enter carrier SCAC or container ID"></input>
       </div>
       <div
@@ -131,7 +131,7 @@ function ShipmentList({ shipments, refreshShipments }) {
           </button>
         )}
       </div>
-      <ul className="ShipmentList">
+      <ul className="shipment-list">
         {shipmentsToShow.map((shipment) => (
           <ShipmentListItem
             key={`shipment-${shipment.id}`}
