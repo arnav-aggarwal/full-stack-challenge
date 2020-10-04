@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
 import { validateContainerId, validateScac, createShipmentTitle, cleanContainerId } from '../helpers';
-import { postShipment } from '../../../api';
+import { createShipment } from '../../../api';
 
 import './CreateShipmentForm.scss';
 
@@ -26,8 +26,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
     });
   };
 
-  async function createShipment(event) {
-    // TODO: Write validation tests
+  async function submitCreateShipment(event) {
     event.preventDefault();
 
     const editedFormInputs = {
@@ -66,7 +65,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       return;
     }
 
-    await postShipment(editedFormInputs);
+    await createShipment(editedFormInputs);
     toast.success(`Shipment ${shipmentTitle} created.`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
@@ -116,7 +115,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
           <button
             type="button"
             className="pure-button pure-button-primary"
-            onClick={createShipment}
+            onClick={submitCreateShipment}
           >
             Submit
           </button>

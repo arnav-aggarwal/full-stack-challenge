@@ -15,7 +15,8 @@ export async function getShipments() {
     }
 }
 
-export async function postShipment(body) {
+// Create shipment
+export async function createShipment(body) {
     try {
         const res = await axios.post('/api/shipments', body);
         return res.data;
@@ -28,6 +29,7 @@ export async function postShipment(body) {
     }
 }
 
+// Set shipment status to active or inactive
 export async function changeActiveStatus(id, body) {
     try {
         const res = await axios.patch(`/api/shipments/${id}`, body);
@@ -41,6 +43,7 @@ export async function changeActiveStatus(id, body) {
     }
 }
 
+// Delete a shipment
 export async function deleteShipment(id) {
     try {
         const res = await axios.delete(`/api/shipments/${id}`);
@@ -54,6 +57,7 @@ export async function deleteShipment(id) {
     }
 }
 
+// Delete ALL shipments
 export async function deleteAllShipments() {
     try {
         const res = await axios.delete('/api/all-shipments');
