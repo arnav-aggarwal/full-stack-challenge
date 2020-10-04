@@ -12,6 +12,12 @@
     }
 }
 
+#controls, #search {
+    h3 {
+        margin: 0.75em 0;
+    }
+}
+
 #controls {
     display:flex;
     margin-bottom: 2em;
