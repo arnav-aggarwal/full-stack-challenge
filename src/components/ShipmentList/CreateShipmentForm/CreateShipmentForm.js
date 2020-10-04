@@ -79,7 +79,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       id="create-shipment-form"
       className={`shipment-list-item ${formInputs.isActive ? 'active' : 'inactive'}`}
     >
-      <form>
+      <div>
         <h2>
           New Shipment
         </h2>
@@ -128,7 +128,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
         >
           Cancel
         </button>
-      </form>
+      </div>
     </div>
   );
 }
