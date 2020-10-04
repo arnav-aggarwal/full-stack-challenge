@@ -1,3 +1,5 @@
+@import 'src/breakpoints';
+
 #app {
   #app-header {
     background-color: #282c34;
@@ -63,15 +65,15 @@
     text-align: center;
   }
 
-  @media(max-width: 1200px) {
+  @media(max-width: $breakpoint-large) {
     width: 70vw;
   }
 
-  @media(max-width: 800px) {
+  @media(max-width: $breakpoint-medium) {
     width: 90vw;
   }
 
-  @media(max-width: 600px) {
+  @media(max-width: $breakpoint-small) {
     .two-button-container {
       display: flex;
 
