@@ -1,4 +1,4 @@
-@import 'src/breakpoints';
+@import 'src/variables';
 
 #main {
   button:first-of-type {
@@ -16,8 +16,14 @@
 
     &.button-warning {
       color: white;
-      border: 1 px solid rgb(223, 117, 20);
-      background: rgb(223, 117, 20);
+      border: 1 px solid $color-warning;
+      background: $color-warning;
+    }
+
+    &.button-warning-2 {
+      color: white;
+      border: 1 px solid $color-warning-2;
+      background: $color-warning-2;
     }
 
     &.pure-button-primary {

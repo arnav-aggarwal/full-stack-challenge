@@ -62,6 +62,15 @@ function ShipmentList({ shipments, refreshShipments }) {
     item => item.carrierScac.includes(searchValue) || item.containerId.includes(searchValue)
   );
 
+  const [deleteAllState, setDeleteAllState] = useState('none');
+  function beginConfirmation() {
+    setDeleteAllState('confirming');
+    setTimeout(() => setDeleteAllState('none'), 5000);
+  }
+
+  const DeleteListButton = () => <button className="pure-button button-warning" onClick={beginConfirmation}>Delete List</button>;
+  const ConfirmDeleteListButton = () => <button className="pure-button button-warning-2" onClick={deleteAll}>Confirm Delete List</button>;
+
   async function deleteAll() {
     await deleteAllShipments();
     toast.success(`All shipments deleted.`, {
@@ -162,7 +171,7 @@ function ShipmentList({ shipments, refreshShipments }) {
       </ul>
       <div className="two-button-container">
         <button className="pure-button" onClick={() => refreshShipments()}>Refresh List</button>
-        <button className="pure-button button-warning" onClick={deleteAll}>Delete List</button>
+        {deleteAllState === 'none' ? <DeleteListButton /> : <ConfirmDeleteListButton />}
       </div>
     </div>
   );
