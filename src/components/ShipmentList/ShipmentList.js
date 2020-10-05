@@ -76,7 +76,8 @@ function ShipmentList({ shipments, refreshShipments }) {
     setTimeout(() => setDeleteAllState('none'), 5000);
     toast.warning('Are you sure? This will delete all shipments.', {
       position: toast.POSITION.BOTTOM_RIGHT,
-    });  }
+    });
+  }
 
   const DeleteListButton = () => (
     <button className="pure-button button-warning" onClick={beginConfirmation}>Delete List</button>
