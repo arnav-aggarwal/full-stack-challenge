@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { toast } from 'react-toastify';
 
 import ShipmentListItem from './ShipmentListItem';
@@ -77,14 +78,20 @@ function ShipmentList({ shipments, refreshShipments }) {
           <div className="two-button-container">
             <button
               name="active"
-              className={`pure-button ${showing.active ? 'pure-button-primary' : ''}`}
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': showing.active }
+              )}
               onClick={handleShowingChange}
             >
               Active
             </button>
             <button
               name="inactive"
-              className={`pure-button ${showing.inactive ? 'pure-button-primary' : ''}`}
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': showing.inactive }
+              )}
               onClick={handleShowingChange}
             >
               Inactive
@@ -96,14 +103,20 @@ function ShipmentList({ shipments, refreshShipments }) {
           <div className="two-button-container">
             <button
               name="date"
-              className={`pure-button ${displayOrder === 'date' ? 'pure-button-primary' : ''}`}
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': displayOrder === 'date' }
+              )}
               onClick={orderByDate}
             >
               Date
             </button>
             <button
               name="scac"
-              className={`pure-button ${displayOrder === 'scac' ? 'pure-button-primary' : ''}`}
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': displayOrder === 'scac' }
+              )}
               onClick={orderByScac}
             >
               SCAC

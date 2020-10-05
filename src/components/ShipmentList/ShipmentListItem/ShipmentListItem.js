@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { toast } from 'react-toastify';
 
 import ShipmentPropType from '../shipmentPropType';
@@ -46,7 +47,10 @@ export default function ShipmentListItem({
   }
 
   return (
-    <li className={`shipment-list-item ${isActive ? 'active' : 'inactive'}`}>
+    <li className={classNames(
+      'shipment-list-item',
+      isActive ? 'active' : 'inactive'
+    )}>
       <h2>
         {shipmentTitle}
       </h2>

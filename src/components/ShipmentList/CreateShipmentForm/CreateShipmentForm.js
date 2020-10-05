@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { toast } from 'react-toastify';
 
 import {
@@ -83,7 +84,10 @@ export default function CreateShipmentForm({
   return (
     <div
       id="create-shipment-form"
-      className={`shipment-list-item ${formInputs.isActive ? 'active' : 'inactive'}`}
+      className={classNames(
+        'shipment-list-item',
+        formInputs.isActive ? 'active' : 'inactive',
+      )}
     >
       <h2>
         New Shipment
