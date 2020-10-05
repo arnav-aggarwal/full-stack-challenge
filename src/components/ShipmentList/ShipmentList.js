@@ -49,7 +49,7 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   if (displayOrder === "scac") {
     shipmentsToShow.sort((a, b) =>
-      createShipmentTitle(a.carrierScac, a.containerId) >=
+      createShipmentTitle(a.carrierScac, a.containerId) >
       createShipmentTitle(b.carrierScac, b.containerId)
         ? 1 : -1
     );
