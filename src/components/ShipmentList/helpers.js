@@ -12,7 +12,7 @@ export function validateContainerId(id) {
 }
 
 export function cleanContainerId(id) {
-  return id.replace(/-/g, '');
+  return id.replace(/-/g, '').toUpperCase();
 }
 
 export function validateScac(scac) {

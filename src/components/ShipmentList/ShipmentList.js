@@ -23,7 +23,7 @@ function ShipmentList({ shipments, refreshShipments }) {
   function handleShowingChange(event) {
     setShowing({
       ...showing,
-      [event.target.name]: !showing[event.target.name]
+      [event.target.name]: !showing[event.target.name],
     });
   }
 
@@ -41,9 +41,7 @@ function ShipmentList({ shipments, refreshShipments }) {
   const orderByScac = () => changeDisplayOrder('scac');
 
   if(displayOrder === 'date') {
-    shipmentsToShow.sort((a, b) => {
-      return new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1
-    });
+    shipmentsToShow.sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1);
   }
 
   if(displayOrder === 'scac') {
@@ -57,7 +55,8 @@ function ShipmentList({ shipments, refreshShipments }) {
   }
 
   const [searchValue, updateSearchValue] = useState('');
-  const handleSearch = event => updateSearchValue(cleanContainerId(event.target.value).toUpperCase());
+  const handleSearch = event => updateSearchValue(cleanContainerId(event.target.value));
+
   shipmentsToShow = shipmentsToShow.filter(
     item => item.carrierScac.includes(searchValue) || item.containerId.includes(searchValue)
   );
@@ -114,7 +113,11 @@ function ShipmentList({ shipments, refreshShipments }) {
       </div>
       <div id="header-search" className="header-controls">
         <h3>Search</h3>
-        <input type="text" onChange={handleSearch} placeholder="Enter carrier SCAC or container ID"></input>
+        <input
+          type="text"
+          onChange={handleSearch}
+          placeholder="Enter carrier SCAC or container ID"
+        />
       </div>
       <div
         id="create-shipment-container"

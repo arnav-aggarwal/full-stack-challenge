@@ -2,12 +2,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
-import { validateContainerId, validateScac, createShipmentTitle, cleanContainerId } from '../helpers';
+import {
+  validateContainerId,
+  validateScac,
+  createShipmentTitle,
+  cleanContainerId,
+} from '../helpers';
 import { createShipment } from '../../../api';
 
 import './CreateShipmentForm.scss';
 
-export default function CreateShipmentForm({ refreshShipments, hideCreateShipmentForm, shipments }) {
+export default function CreateShipmentForm({
+  refreshShipments,
+  hideCreateShipmentForm,
+  shipments,
+}) {
   const formInputDefaults = {
     containerId: '',
     carrierScac: '',
@@ -26,9 +35,7 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
     });
   };
 
-  async function submitCreateShipment(event) {
-    event.preventDefault();
-
+  async function submitCreateShipment() {
     const editedFormInputs = {
       ...formInputs,
       containerId: cleanContainerId(formInputs.containerId),
@@ -78,56 +85,55 @@ export default function CreateShipmentForm({ refreshShipments, hideCreateShipmen
       id="create-shipment-form"
       className={`shipment-list-item ${formInputs.isActive ? 'active' : 'inactive'}`}
     >
-        <h2>
-          New Shipment
-        </h2>
-        <h3>
-          Carrier SCAC
-        </h3>
+      <h2>
+        New Shipment
+      </h2>
+      <h3>
+        Carrier SCAC
+      </h3>
+      <input
+        type="text"
+        name="carrierScac"
+        placeholder="Carrier SCAC"
+        value={formInputs.carrierScac}
+        onChange={handleInputChange}
+      />
+      <h3>
+        Container ID
+      </h3>
+      <input
+        type="text"
+        name="containerId"
+        placeholder="Container ID"
+        value={formInputs.containerId}
+        onChange={handleInputChange}
+      />
+      <br />
+      <label>
         <input
-          type="text"
-          name="carrierScac"
-          placeholder="Carrier SCAC"
-          value={formInputs.carrierScac}
+          type="checkbox"
+          name="isActive"
+          checked={formInputs.isActive}
           onChange={handleInputChange}
         />
-        <h3>
-          Container ID
-        </h3>
-        <input
-          type="text"
-          name="containerId"
-          placeholder="Container ID"
-          value={formInputs.containerId}
-          onChange={handleInputChange}
-        />
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            name="isActive"
-            checked={formInputs.isActive}
-            onChange={handleInputChange}
-          />
-          Active
-        </label>
-        <div className="two-button-container">
-          <button
-            type="button"
-            className="pure-button pure-button-primary"
-            onClick={submitCreateShipment}
-          >
-            Submit
-          </button>
-          <button
-            type="button"
-            className="pure-button"
-            onClick={hideCreateShipmentForm}
-          >
-            Cancel
-          </button>
-
-        </div>
+        Active
+      </label>
+      <div className="two-button-container">
+        <button
+          type="button"
+          className="pure-button pure-button-primary"
+          onClick={submitCreateShipment}
+        >
+          Submit
+        </button>
+        <button
+          type="button"
+          className="pure-button"
+          onClick={hideCreateShipmentForm}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 }
