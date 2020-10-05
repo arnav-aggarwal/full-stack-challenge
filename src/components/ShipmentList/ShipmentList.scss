@@ -1,0 +1,89 @@
+@import 'src/variables';
+
+#main {
+  button:first-of-type {
+    margin-right: 1em;
+  }
+
+  @media(max-width: $breakpoint-small) {
+    button {
+      height: 40px;
+    }
+  }
+
+  button.pure-button {
+    border: 1px solid grey;
+
+    &.button-warning {
+      color: white;
+      border: 1 px solid $color-warning;
+      background: $color-warning;
+    }
+
+    &.button-warning-2 {
+      color: white;
+      border: 1 px solid $color-warning-2;
+      background: $color-warning-2;
+    }
+
+    &.pure-button-primary {
+      border: 1px solid #0078e7;
+    }
+  }
+
+  .header-controls {
+    h3 {
+      margin: 0.75em 0;
+    }
+  }
+
+  @media(min-width: $breakpoint-small) {
+    #header-buttons-wrapper {
+      display: flex;
+      margin-bottom: 2em;
+
+      >div {
+        flex: 1;
+      }
+    }
+  }
+
+  #header-search {
+    margin-bottom: 2em;
+
+    input {
+      width: calc(100% - 20px);
+    }
+  }
+
+  #create-shipment-container {
+    margin: 1em auto;
+
+    &.button-container {
+      text-align: center;
+
+      @media(max-width: $breakpoint-small) {
+        display: flex;
+
+        button {
+          flex: 1;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  #shipment-list {
+    width: 50vw;
+    text-align: left;
+    padding: 0;
+
+    @media(max-width: $breakpoint-large) {
+      width: 70vw;
+    }
+
+    @media(max-width: $breakpoint-medium) {
+      width: 90vw;
+    }
+  }
+}

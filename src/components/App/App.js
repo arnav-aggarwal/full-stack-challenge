@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { getShipments } from "../../api";
-import ShipmentList from "../ShipmentList";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { useEffect, useState } from 'react';
+import { ToastContainer, Slide } from 'react-toastify';
+
+import { getShipments } from '../../api';
+import ShipmentList from '../ShipmentList';
+import logo from './logo.svg';
+
+import './App.scss';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,18 +27,21 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a className="App-link" href="/">
+    <div id="app">
+      <header id="app-header">
+        <img src={logo} id="app-logo" alt="logo" />
+        <a id="app-link" href="/">
           Shipments
         </a>
       </header>
-      {isLoading ? (
-        <p className="App-loading-message">Loading...</p>
-      ) : (
-        <ShipmentList shipments={shipments} onRefreshClick={loadShipments} />
-      )}
+      <div id="main-container">
+        {isLoading ?
+          <h1>Loading...</h1> :
+          <h1>Current Shipments</h1>
+        }
+        <ShipmentList shipments={shipments} refreshShipments={loadShipments} />
+      </div>
+      <ToastContainer transition={Slide} />
     </div>
   );
 }

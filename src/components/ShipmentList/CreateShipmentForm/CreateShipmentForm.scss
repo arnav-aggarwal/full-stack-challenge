@@ -1,0 +1,17 @@
+@import 'src/variables';
+
+#create-shipment-form {
+  h3 {
+    margin: 0.5em 0;
+  }
+
+  input {
+    margin-bottom: 1em;
+  }
+
+  @media(max-width: $breakpoint-small) {
+    input[type=text] {
+      width: calc(100% - 24px);
+    }
+  }
+}

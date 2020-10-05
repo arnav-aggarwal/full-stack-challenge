@@ -15,18 +15,22 @@ const shipments = [
     id: "3103bfde-ea57-4160-ad43-5b3ce1f8ec1c",
     containerId: "APHU7369949",
     carrierScac: "CMDU",
-    isActive: true,
+    isActive: false,
     createdAt: "2020-09-27T07:17:27.686Z",
     updatedAt: "2020-09-27T07:17:27.686Z",
   },
 ];
 
-test("renders a list of shipments", () => {
-  const { getByText } = render(
-    <ShipmentList shipments={shipments} />
-  );
-  const firstShipment = getByText(/TGHU9127781/i);
-  const secondShipment = getByText(/APHU7369949/i);
-  expect(firstShipment).toBeDefined();
-  expect(secondShipment).toBeDefined();
+describe('ShipmentList', () => {
+  test("renders a list of shipments", () => {
+    const { getByText } = render(
+      <ShipmentList shipments={shipments} />
+    );
+
+    const firstShipment = getByText(/TGHU-912778-1/i);
+    const secondShipment = getByText(/APHU-736994-9/i);
+
+    expect(firstShipment).toBeDefined();
+    expect(secondShipment).toBeDefined();
+  });
 });

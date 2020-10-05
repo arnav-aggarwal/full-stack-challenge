@@ -1,58 +1,198 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./ShipmentList.css";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { toast } from 'react-toastify';
 
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return d.toLocaleString();
-}
+import ShipmentListItem from './ShipmentListItem';
+import CreateShipmentForm from './CreateShipmentForm';
+import ShipmentPropType from './shipmentPropType';
+import { cleanContainerId, createShipmentTitle } from './helpers';
+import { deleteAllShipments } from '../../api';
 
-function ShipmentListItem({
-  shipment: { carrierScac, containerId, createdAt },
-}) {
-  return (
-    <li className="ShipmentListItem">
-      <p className="ShipmentListItem-title">
-        {carrierScac} / {containerId}
-      </p>
-      <p>Created {formatDate(createdAt)}</p>
-    </li>
+import './ShipmentList.scss';
+
+function ShipmentList({ shipments, refreshShipments }) {
+  const [creatingShipment, setCreatingShipment] = useState(false);
+  const showCreateShipmentForm = () => setCreatingShipment(true);
+  const hideCreateShipmentForm = () => setCreatingShipment(false);
+
+  const [showing, setShowing] = useState({
+    active: true,
+    inactive: true,
+  });
+
+  function handleShowingChange(event) {
+    setShowing({
+      ...showing,
+      [event.target.name]: !showing[event.target.name],
+    });
+  }
+
+  let shipmentsToShow = shipments;
+  if(!showing.active) {
+    shipmentsToShow = shipmentsToShow.filter(item => !item.isActive);
+  }
+
+  if(!showing.inactive) {
+    shipmentsToShow = shipmentsToShow.filter(item => item.isActive);
+  }
+
+  const [displayOrder, changeDisplayOrder] = useState('date')
+  const orderByDate = () => changeDisplayOrder('date');
+  const orderByScac = () => changeDisplayOrder('scac');
+
+  function compareShipmentTitles(first, second) {
+    return (
+      createShipmentTitle(first.carrierScac, first.containerId) >
+      createShipmentTitle(second.carrierScac, second.containerId)
+        ? 1 : -1
+    );
+  }
+
+  if (displayOrder === "date") {
+    shipmentsToShow.sort((first, second) => {
+      if(first.createdAt === second.createdAt) {
+        return compareShipmentTitles(first, second);
+      }
+
+      return new Date(first.createdAt) > new Date(second.createdAt) ? 1 : -1;
+    });
+  }
+
+  if (displayOrder === "scac") {
+    shipmentsToShow.sort(compareShipmentTitles);
+  }
+
+  const [searchValue, updateSearchValue] = useState('');
+  const handleSearch = event => updateSearchValue(cleanContainerId(event.target.value));
+
+  shipmentsToShow = shipmentsToShow.filter(
+    item => item.carrierScac.includes(searchValue) || item.containerId.includes(searchValue)
   );
-}
 
-const ShipmentPropType = PropTypes.shape({
-  id: PropTypes.string,
-  containerId: PropTypes.string,
-  carrierScac: PropTypes.string,
-  isActive: PropTypes.bool,
-  createdAt: PropTypes.string,
-  updatedAt: PropTypes.string
-});
+  const [deleteAllState, setDeleteAllState] = useState('none');
+  function beginConfirmation() {
+    setDeleteAllState('confirming');
+    setTimeout(() => setDeleteAllState('none'), 5000);
+  }
 
-ShipmentListItem.propTypes = {
-  shipment: ShipmentPropType
-}
+  const DeleteListButton = () => (
+    <button className="pure-button button-warning" onClick={beginConfirmation}>Delete List</button>
+  );
 
-function ShipmentList({ shipments, onRefreshClick }) {
+  const ConfirmDeleteListButton = () => (
+    <button className="pure-button button-warning-2" onClick={deleteAll}>Confirm Delete List</button>
+  );
+
+  async function deleteAll() {
+    await deleteAllShipments();
+    toast.success('All shipments deleted.', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+    refreshShipments();
+  }
+
   return (
-    <>
-      <h1>Current Shipments</h1>
-      <ul className="ShipmentList">
-        {shipments.map((shipment) => (
+    <div id="main">
+      <div id="header-buttons-wrapper" className="header-controls">
+        <div>
+          <h3>Show</h3>
+          <div className="two-button-container">
+            <button
+              name="active"
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': showing.active }
+              )}
+              onClick={handleShowingChange}
+            >
+              Active
+            </button>
+            <button
+              name="inactive"
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': showing.inactive }
+              )}
+              onClick={handleShowingChange}
+            >
+              Inactive
+            </button>
+          </div>
+        </div>
+        <div>
+          <h3>Order by</h3>
+          <div className="two-button-container">
+            <button
+              name="date"
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': displayOrder === 'date' }
+              )}
+              onClick={orderByDate}
+            >
+              Date
+            </button>
+            <button
+              name="scac"
+              className={classNames(
+                'pure-button',
+                { 'pure-button-primary': displayOrder === 'scac' }
+              )}
+              onClick={orderByScac}
+            >
+              SCAC
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="header-search" className="header-controls">
+        <h3>Search</h3>
+        <input
+          type="text"
+          onChange={handleSearch}
+          placeholder="Enter carrier SCAC or container ID"
+        />
+      </div>
+      <div
+        id="create-shipment-container"
+        className={creatingShipment ? 'form-container' : 'button-container'}
+      >
+        {creatingShipment ? (
+          <CreateShipmentForm
+            refreshShipments={refreshShipments}
+            hideCreateShipmentForm={hideCreateShipmentForm}
+            shipments={shipments}
+          />
+        ) : (
+          <button
+            className="create-shipment-button pure-button pure-button-primary"
+            onClick={showCreateShipmentForm}
+          >
+            + Create Shipment
+          </button>
+        )}
+      </div>
+      <ul id="shipment-list">
+        {shipmentsToShow.map((shipment) => (
           <ShipmentListItem
             key={`shipment-${shipment.id}`}
             shipment={shipment}
+            refreshShipments={refreshShipments}
           />
         ))}
       </ul>
-      <button onClick={() => onRefreshClick()}>Refresh List</button>
-    </>
+      <div className="two-button-container">
+        <button className="pure-button" onClick={() => refreshShipments()}>Refresh List</button>
+        {deleteAllState === 'none' ? <DeleteListButton /> : <ConfirmDeleteListButton />}
+      </div>
+    </div>
   );
 }
 
 ShipmentList.propTypes = {
   shipments: PropTypes.arrayOf(ShipmentPropType),
-  onRefreshClick: PropTypes.func
+  refreshShipments: PropTypes.func
 };
 
 export default ShipmentList;
