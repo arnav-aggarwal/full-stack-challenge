@@ -45,7 +45,7 @@ export default function CreateShipmentForm({
     const { carrierScac, containerId } = editedFormInputs;
 
     if(!validateScac(carrierScac)) {
-      toast.warning(`Please ensure you've entered a valid carrier SCAC.`, {
+      toast.warning("Please ensure you've entered a valid carrier SCAC.", {
         position: toast.POSITION.TOP_RIGHT,
         toastId: 'invalid-carrier-scac',
       });
@@ -54,7 +54,7 @@ export default function CreateShipmentForm({
     }
 
     if(!validateContainerId(containerId)) {
-      toast.warning(`Please ensure you've entered a valid container ID.`, {
+      toast.warning("Please ensure you've entered a valid container ID.", {
         position: toast.POSITION.TOP_RIGHT,
         toastId: 'invalid-container-id',
       });

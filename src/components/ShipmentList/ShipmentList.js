@@ -86,7 +86,7 @@ function ShipmentList({ shipments, refreshShipments }) {
 
   async function deleteAll() {
     await deleteAllShipments();
-    toast.success(`All shipments deleted.`, {
+    toast.success('All shipments deleted.', {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
     refreshShipments();
