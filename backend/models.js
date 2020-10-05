@@ -3,6 +3,10 @@ const sequelize = require("./db");
 const { Sequelize } = require("sequelize");
 
 class Shipment extends Model {
+  async activate() {
+    this.isActive = true;
+    await this.save();
+  }
   async deactivate() {
     this.isActive = false;
     await this.save();

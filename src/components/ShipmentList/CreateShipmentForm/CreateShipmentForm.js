@@ -64,7 +64,9 @@ export default function CreateShipmentForm({
 
     const shipmentTitle = createShipmentTitle(carrierScac, containerId);
 
-    if(shipments.find(item => item.carrierScac === carrierScac && item.containerId === containerId)) {
+    if(shipments.find(
+      item => item.carrierScac === carrierScac && item.containerId === containerId
+    )) {
       toast.warning(`You're already tracking shipment ${shipmentTitle}.`, {
         position: toast.POSITION.TOP_RIGHT,
         toastId: `duplicate-entry-${shipmentTitle}`,

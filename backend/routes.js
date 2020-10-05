@@ -27,9 +27,7 @@ router.patch("/shipments/:id", async(req, res) => {
   const shipments = await Shipment.findAll({ where: { id }});
   const thisShipment = shipments[0];
 
-  thisShipment.isActive = isActive;
-  await thisShipment.save();
-
+  await isActive ? thisShipment.activate() : thisShipment.deactivate();
   res.send(thisShipment);
 });
 
