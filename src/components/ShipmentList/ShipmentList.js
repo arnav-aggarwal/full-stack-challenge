@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import ShipmentListItem from './ShipmentListItem';
 import CreateShipmentForm from './CreateShipmentForm';
 import ShipmentPropType from './shipmentPropType';
-import { cleanContainerId } from './helpers';
+import { cleanContainerId, createShipmentTitle } from './helpers';
 import { deleteAllShipments } from '../../api';
 
 import './ShipmentList.scss';
@@ -41,19 +41,20 @@ function ShipmentList({ shipments, refreshShipments }) {
   const orderByDate = () => changeDisplayOrder('date');
   const orderByScac = () => changeDisplayOrder('scac');
 
-  if(displayOrder === 'date') {
-    shipmentsToShow.sort((a, b) => new Date(a.createdAt) > new Date(b.createdAt) ? 1 : -1);
+  if (displayOrder === "date") {
+    shipmentsToShow.sort((a, b) =>
+      new Date(a.createdAt) >= new Date(b.createdAt) ? 1 : -1
+    );
   }
 
-  if(displayOrder === 'scac') {
-    shipmentsToShow.sort((a, b) => {
-      if(a.carrierScac === b.carrierScac) {
-        return a.containerId > b.containerId ? 1 : -1;
-      }
-
-      return a.carrierScac > b.carrierScac ? 1 : -1
-    });
+  if (displayOrder === "scac") {
+    shipmentsToShow.sort((a, b) =>
+      createShipmentTitle(a.carrierScac, a.containerId) >=
+      createShipmentTitle(b.carrierScac, b.containerId)
+        ? 1 : -1
+    );
   }
+
 
   const [searchValue, updateSearchValue] = useState('');
   const handleSearch = event => updateSearchValue(cleanContainerId(event.target.value));
@@ -68,8 +69,13 @@ function ShipmentList({ shipments, refreshShipments }) {
     setTimeout(() => setDeleteAllState('none'), 5000);
   }
 
-  const DeleteListButton = () => <button className="pure-button button-warning" onClick={beginConfirmation}>Delete List</button>;
-  const ConfirmDeleteListButton = () => <button className="pure-button button-warning-2" onClick={deleteAll}>Confirm Delete List</button>;
+  const DeleteListButton = () => (
+    <button className="pure-button button-warning" onClick={beginConfirmation}>Delete List</button>
+  );
+
+  const ConfirmDeleteListButton = () => (
+    <button className="pure-button button-warning-2" onClick={deleteAll}>Confirm Delete List</button>
+  );
 
   async function deleteAll() {
     await deleteAllShipments();
