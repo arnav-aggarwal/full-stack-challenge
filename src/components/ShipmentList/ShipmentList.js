@@ -41,20 +41,27 @@ function ShipmentList({ shipments, refreshShipments }) {
   const orderByDate = () => changeDisplayOrder('date');
   const orderByScac = () => changeDisplayOrder('scac');
 
-  if (displayOrder === "date") {
-    shipmentsToShow.sort((a, b) =>
-      new Date(a.createdAt) >= new Date(b.createdAt) ? 1 : -1
-    );
-  }
-
-  if (displayOrder === "scac") {
-    shipmentsToShow.sort((a, b) =>
-      createShipmentTitle(a.carrierScac, a.containerId) >
-      createShipmentTitle(b.carrierScac, b.containerId)
+  function compareShipmentTitles(first, second) {
+    return (
+      createShipmentTitle(first.carrierScac, first.containerId) >
+      createShipmentTitle(second.carrierScac, second.containerId)
         ? 1 : -1
     );
   }
 
+  if (displayOrder === "date") {
+    shipmentsToShow.sort((first, second) => {
+      if(first.createdAt === second.createdAt) {
+        return compareShipmentTitles(first, second);
+      }
+
+      return new Date(first.createdAt) > new Date(second.createdAt) ? 1 : -1;
+    });
+  }
+
+  if (displayOrder === "scac") {
+    shipmentsToShow.sort(compareShipmentTitles);
+  }
 
   const [searchValue, updateSearchValue] = useState('');
   const handleSearch = event => updateSearchValue(cleanContainerId(event.target.value));
