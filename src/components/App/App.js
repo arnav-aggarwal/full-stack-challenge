@@ -6,8 +6,6 @@ import ShipmentList from '../ShipmentList';
 import logo from './logo.svg';
 
 import './App.scss';
-import 'react-toastify/dist/ReactToastify.min.css';
-import 'purecss/build/buttons-min.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
